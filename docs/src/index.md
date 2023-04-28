@@ -27,4 +27,6 @@ is_valid_misr_prdct
 is_valid_misr_site
 is_valid_misrhr_prdct
 mk_misr_fname
+mk_misr_fpath
+mk_misr_fspec
 ```

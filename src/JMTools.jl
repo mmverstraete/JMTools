@@ -25,15 +25,11 @@ julia> using JMTools
 """
 module JMTools
 
+# using .JMtk15
+
 # Package configuration:
 
-# Please update the following two assignment statements to match your current configuration.
-# 1. Set the location of the Mtk shared library:
-
-mtklib = "/Applications/Mtk-1.5.0/lib/libMisrToolkit.so.1.5.0"
-export mtklib
-
-# 2. Set the location of the MISR source and data files for this JMTools package. In principle, only the data subdirectory may need to be updated, if your data are located elsewhere than in the default directory identified below:
+# 1. Set the location of the MISR source and data files for this JMTools package:
 
 # Define the default root directories for the project :
 const JMTools_root = dirname(@__DIR__)

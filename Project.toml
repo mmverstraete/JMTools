@@ -4,6 +4,7 @@ authors = ["Michel Verstraete <MMVerstraete@gmail.com> and contributors"]
 version = "0.1.0"
 
 [deps]
+JMtk15 = "6c71635d-e68b-418f-880a-c8128ca9dc0a"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]

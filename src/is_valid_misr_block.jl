@@ -7,7 +7,7 @@ Determine whether the specified `misr_block` is a valid MISR Block number, and r
 # Required positional argument(s):
 * `misr_block::Integer`: The MISR Block number.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `bool::Bool`: Whether `misr_block` is valid or not.

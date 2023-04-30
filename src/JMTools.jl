@@ -44,6 +44,8 @@ export JMTools_docs
 
 include(JMTools_src * "current_misr_prdct_version.jl")
 export current_misr_prdct_version
+include(JMTools_src * "fnm2meta.jl")
+export fnm2meta
 include(JMTools_src * "is_valid_misr_block.jl")
 export is_valid_misr_block
 include(JMTools_src * "is_valid_misr_camera.jl")
@@ -54,6 +56,8 @@ include(JMTools_src * "is_valid_misr_path.jl")
 export is_valid_misr_path
 include(JMTools_src * "is_valid_misr_prdct.jl")
 export is_valid_misr_prdct
+include(JMTools_src * "is_valid_misr_resolution.jl")
+export is_valid_misr_resolution
 include(JMTools_src * "is_valid_misr_site.jl")
 export is_valid_misr_site
 include(JMTools_src * "is_valid_misrhr_prdct.jl")

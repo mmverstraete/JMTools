@@ -7,7 +7,7 @@ Determine whether the specified `misr_orbit` is a valid MISR Orbit number, and r
 # Required positional argument(s):
 * `misr_orbit::Integer`: The MISR Orbit number.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `bool::Bool`: Whether `misr_orbit` is valid or not.

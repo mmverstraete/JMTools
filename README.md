@@ -1,6 +1,5 @@
 # JMTools
 
-[![Build Status](https://github.com/mmverstraete/JMTools/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/mmverstraete/JMTools/actions/workflows/CI.yml?query=branch%3Amain)
 [![Code Style: Blue](https://img.shields.io/badge/code%20style-blue-4495d1.svg)](https://github.com/invenia/BlueStyle)
 
 Welcome to [JMTools](https://github.com/mmverstraete/JMTools), a Julia language package that offers generic tools to manipulate MISR and MISR-HR variables and data files. Some of those functions may rely on the [JMtk15](https://github.com/mmverstraete/) package.

@@ -1,6 +1,6 @@
 """
     misr_fname = mk_misr_fname(misr_prdct, misr_path;
-        misr_orbit, misr_camera, misr_site, misr_version)
+        misr_orbit = 0, misr_camera = "", misr_site = "", misr_version = "")
 
 # Purpose:
 Return a Vector of name(s) of the MISR data product file(s) corresponding to the specified input arguments.
@@ -31,7 +31,7 @@ Return a Vector of name(s) of the MISR data product file(s) corresponding to the
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s):
-* This function improves on the MISR Toolkit function `MtkMakeFilename.c` because it (1) requires only the needed input arguments and tests whether they are valid, (2) ignores unnecessary inputs, and (3) throws a meaningful error if a necessary input is missing or invalid.
+* This function improves on the MISR Toolkit function `MtkMakeFilename.c` because it (1) requires only the needed input arguments and tests whether they are valid, (2) ignores unnecessary inputs, (3) throws a meaningful error if a necessary input is missing or invalid, and (4) accepts "*" as a valid camera name specification, in which case the output argument `misr_fname` is a `Vector` of 9 values, one for each camera.
 * The input keyword arguments are optional, but if they are explicitly mentioned in the call to the function, their values must also be specified: default values are only provided if the keywords are absent in the call. See the first two examples below.
 * This function cannot provide meaningful default values for the input keywords `misr_orbit`, `misr_camera`, and `misr_site`, but does use the most current `misr_version` label for the specified `misr_prdct` if that keyword is missing. Conversely, if the input keyword `misr_version` is specified, this function cannot verify its validity.
 * This function always returns a `Vector` of file name(s).
@@ -61,8 +61,17 @@ julia> misr_camera = "CF"
 julia> misr_fname = mk_misr_fname("L1RCCM", 168; misr_orbit = misr_orbit, misr_camera = misr_camera)
 "MISR_AM1_GRP_RCCM_GM_P168_O068050_CF_F04_0025.hdf"
 
-julia> misr_fname = mk_misr_fname("L1RTLM", 168; misr_orbit = 68050, misr_camera = "*", misr_site = "skukuza")
-"MISR_AM1_GRP_TERRAIN_LM_P168_O068050_*_SITE_SKUKUZA_F03_0024.hdf"
+julia> misr_fname = mk_misr_fname("L1RTGM", 168; misr_orbit = 68500, misr_camera = "*")
+9-element Vector{AbstractString}:
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_DF_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_CF_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_BF_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_AF_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_AN_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_AA_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_BA_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_CA_F03_0024.hdf"
+ "MISR_AM1_GRP_TERRAIN_GM_P168_O068500_DA_F03_0024.hdf"
 
 julia> misr_fname = mk_misr_fname("L1GMP", 168; misr_orbit = 680500)
 ERROR: mk_misr_fname: Invalid MISR Orbit number: must be in [995, 200000].
@@ -104,6 +113,51 @@ function mk_misr_fname(
             misr_version *
             ".hdf"]
 
+    # Set the filename of an L1BROW file:
+    elseif misr_prdct == "L1BROW"
+        if misr_orbit == ""
+            error("mk_misr_fname: Missing MISR Orbit number.")
+        end
+        bool, misr_orbit_string = is_valid_misr_orbit(misr_orbit)
+        if bool == false
+            error("mk_misr_fname: Invalid MISR Orbit number: must be in [995, 200000].")
+        end
+        if misr_camera == ""
+            error("mk_misr_fname: Missing MISR Camera name.")
+        end
+        bool = is_valid_misr_camera(misr_camera) | (misr_camera == "*")
+        if bool == false
+            error("mk_misr_fname: Invalid MISR Camera name: must be one of " * cameras *
+                " or \"*\"].")
+        end
+        if misr_version == ""
+            misr_version = current_misr_prdct_version(misr_prdct)
+        end
+
+        if misr_camera != "*"
+            ncams = 1
+            misr_fname = Vector{AbstractString}(undef, ncams)
+            misr_fname[1] = "MISR_AM1" * "_" *
+                prdct_name * "_" *
+                misr_path_string * "_" *
+                misr_orbit_string * "_" *
+                misr_camera * "_" *
+                misr_version *
+                ".hdf"
+        else
+            ncams = length(cameras)
+            misr_fname = Vector{AbstractString}(undef, ncams)
+            for i = 1:ncams
+                misr_fname[i] = "MISR_AM1" * "_" *
+                    prdct_name * "_" *
+                    misr_path_string * "_" *
+                    misr_orbit_string * "_" *
+                    cameras[i] * "_" *
+                    misr_version *
+                    ".hdf"
+            end
+        end
+
     # Set the filename of an L1GMP file:
     elseif misr_prdct == "L1GMP"
         if misr_orbit == ""
@@ -135,7 +189,7 @@ function mk_misr_fname(
         if misr_camera == ""
             error("mk_misr_fname: Missing MISR Camera name.")
         end
-        bool = is_valid_misr_camera(misr_camera)
+        bool = is_valid_misr_camera(misr_camera) | (misr_camera == "*")
         if bool == false
             error("mk_misr_fname: Invalid MISR Camera name: must be one of " * cameras *
                 " or \"*\"].")
@@ -180,7 +234,7 @@ function mk_misr_fname(
         if misr_camera == ""
             error("mk_misr_fname: Missing MISR Camera name.")
         end
-        bool = is_valid_misr_camera(misr_camera)
+        bool = is_valid_misr_camera(misr_camera) | (misr_camera == "*")
         if bool == false
             error("mk_misr_fname: Invalid MISR Camera name: must be one of " * cameras *
                 " or \"*\"].")
@@ -235,7 +289,7 @@ function mk_misr_fname(
         if misr_camera == ""
             error("mk_misr_fname: Missing MISR Camera name.")
         end
-        bool = is_valid_misr_camera(misr_camera)
+        bool = is_valid_misr_camera(misr_camera) | (misr_camera == "*")
         if bool == false
             error("mk_misr_fname: Invalid MISR Camera name: must be one of " * cameras *
                 " or \"*\"].")

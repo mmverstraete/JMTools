@@ -7,7 +7,7 @@ Return the current version label for the specified MISR product acronym.
 # Required positional argument(s):
 * `misr_prdct::AbstractString`: The MISR product acronym name.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `misr_prdct_version::AbstractString`: The current version label for the specified MISR product acronym.

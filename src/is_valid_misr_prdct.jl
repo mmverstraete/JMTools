@@ -5,9 +5,9 @@
 Determine whether the specified `misr_prdct` is a valid MISR product acronym, and return the product label used in filenames, the full MISR product name, and the MISR product Earth Science Data Type (ESDT) useful to acquire data files on the NASA ASDC Data Pool.
 
 # Required positional argument(s):
-* `prdct::AbstractString`: The MISR product acronym.
+* `misr_prdct::AbstractString`: The MISR product acronym.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `bool::Bool`: Whether `misr_prdct` acronym is valid or not.
@@ -53,7 +53,7 @@ function is_valid_misr_prdct(
         prdct_esdt = "MIANCAGP"
     elseif misr_prdct == "L1BROW"
         bool = true
-        prdct_name = "GRP_ELLIPSOID_GM_BR"
+        prdct_name = "GRP_ELLIPSOID_BR_GM"
         prdct_full_name = "Ellipsoid Projected Browse Product"
         prdct_esdt = "MISBR"
     elseif misr_prdct == "L1GMP"

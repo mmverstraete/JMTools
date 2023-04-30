@@ -7,7 +7,7 @@ Determine whether the specified `misr_path` is a valid MISR Path number, and ret
 # Required positional argument(s):
 * `misr_path::Integer`: The MISR path number.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `bool::Bool`: Whether `misr_path` is valid or not.

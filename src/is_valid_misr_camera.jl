@@ -7,7 +7,7 @@ Determine whether the specified `misr_camera` is a valid MISR camera name.
 # Required positional argument(s):
 * `misr_camera::AbstractString`: The MISR camera name.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `bool::Bool`: Whether `misr_camera` is valid or not.
@@ -22,8 +22,7 @@ Determine whether the specified `misr_camera` is a valid MISR camera name.
 * Mtk C Library: Version 1.5.
 * Julia function: Version 0.1.0 (2023-05-15).
 
-# Note(s):
-* The input positional argument `misr_camera` can be specified as "*" to refer to all 9 camer names.
+# Note(s): None.
 
 # Example(s):
 ```julia
@@ -34,9 +33,6 @@ true
 
 julia> bool = is_valid_misr_camera("df")
 false
-
-julia> bool = is_valid_misr_camera("*")
-true
 ```
 """
 function is_valid_misr_camera(
@@ -53,8 +49,7 @@ function is_valid_misr_camera(
         "AA",
         "BA",
         "CA", 
-        "DA",
-        "*"]
+        "DA"]
 
     bool = (misr_camera in valid_misr_camera)
 

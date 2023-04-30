@@ -7,7 +7,7 @@ Determine whether the specified `misrhr_prdct` is a valid MISR-HR product acrony
 # Required positional argument(s):
 * `misrhr_prdct::AbstractString`: The MISR-HR product acronym.
 
-# Optional keyword(s): N/A.
+# Optional keyword(s): None.
 
 # Returned value(s):
 * `bool::Bool`: Whether `misrhr_prdct` is valid or not.

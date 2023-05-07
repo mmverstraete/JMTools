@@ -41,8 +41,30 @@ julia> misr_fspec = mk_misr_fspec("L1RTGM", 168;
            misr_orbit = 68050, misr_camera = "AN", misr_site = "", misr_version = "")
 "/Volumes/MISR_Data0/P168/L1RTGM/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.hdf"
 
-julia> isfile(misr_fspec)
-true
+julia> misr_prdct = "L1RCCM"
+"L1RCCM"
+
+julia> misr_path = 168
+168
+
+julia> misr_orbit = 68050
+68050
+
+julia> misr_camera = "*"
+"*"
+
+julia> misr_fspec = mk_misr_fspec(misr_prdct, misr_path;
+           misr_orbit, misr_camera)
+9-element Vector{AbstractString}:
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_DF_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_CF_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_BF_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_AF_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_AN_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_AA_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_BA_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_CA_F04_0025.hdf"
+ "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_DA_F04_0025.hdf"
 ```
 """
 function mk_misr_fspec(

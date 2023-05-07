@@ -25,14 +25,16 @@ julia> using JMTools
 """
 module JMTools
 
-# using .JMtk15
+using JMtk15
+
+using Statistics
 
 # Package configuration:
 
 # 1. Set the location of the MISR source and data files for this JMTools package:
 
 # Define the default root directories for the project :
-const JMTools_root = dirname(@__DIR__)
+const JMTools_root = pkgdir(JMTools)
 export JMTools_root
 const JMTools_src = JMTools_root * "/src/"
 export JMTools_src
@@ -46,6 +48,10 @@ include(JMTools_src * "current_misr_prdct_version.jl")
 export current_misr_prdct_version
 include(JMTools_src * "fnm2meta.jl")
 export fnm2meta
+include(JMTools_src * "hr2lr.jl")
+export hr2lr
+include(JMTools_src * "is_from_misr_path.jl")
+export is_from_misr_path
 include(JMTools_src * "is_valid_misr_block.jl")
 export is_valid_misr_block
 include(JMTools_src * "is_valid_misr_camera.jl")
@@ -69,5 +75,9 @@ export mk_misr_folder
 include(JMTools_src * "mk_misr_fspec.jl")
 export mk_misr_fspec
 
+
+
+# include(JMTools_src * "find_matches.jl")
+# export find_matches
 
 end

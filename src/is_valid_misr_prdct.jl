@@ -96,16 +96,16 @@ function is_valid_misr_prdct(
         prdct_name = "TC_CLASSIFIERS"
         prdct_full_name = "TOA Cloud Classifier Product"
         prdct_esdt = "MIL2TCCL"
+    elseif misr_prdct == "L2TCLOUD"
+        bool = true
+        prdct_name = "TC_CLOUD"
+        prdct_full_name = "Cloud Heights and Motion Product"
+        prdct_esdt = "MIL2TCSP"
     elseif misr_prdct == "L2TSTEREO"
         bool = true
         prdct_name = "TC_STEREO"
         prdct_full_name = "TOA Cloud Stereo Product"
         prdct_esdt = "MIL2TCST"
-    elseif misr_prdct == "L2TCCLOUD"
-        bool = true
-        prdct_name = "TC_CLOUD"
-        prdct_full_name = "Cloud Heights and Motion Product"
-        prdct_esdt = "MIL2TCSP"
     elseif misr_prdct == "L2AERO"
         bool = true
         prdct_name = "AS_AEROSOL"

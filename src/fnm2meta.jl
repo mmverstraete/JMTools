@@ -107,6 +107,22 @@ function fnm2meta(
         misr_prdct_id = "L1RCCM"
         misr_mode_id = "GM"
         fname = fname[13:lastindex(fname)]
+    elseif fname[1:10] == "TC_ALBEDO_"
+        misr_prdct_id = "L2TALBEDO"
+        misr_mode_id = ""
+        fname = fname[11:lastindex(fname)]
+    elseif fname[1:15] == "TC_CLASSIFIERS_"
+        misr_prdct_id = "L2TCLASS"
+        misr_mode_id = ""
+        fname = fname[16:lastindex(fname)]
+    elseif fname[1:9] == "TC_CLOUD_"
+        misr_prdct_id = "L2TCLOUD"
+        misr_mode_id = ""
+        fname = fname[10:lastindex(fname)]
+    elseif fname[1:10] == "TC_STEREO_"
+        misr_prdct_id = "L2TSTEREO"
+        misr_mode_id = ""
+        fname = fname[11:lastindex(fname)]
     elseif fname[1:11] == "AS_AEROSOL_"
         misr_prdct_id = "L2AERO"
         misr_mode_id = ""
@@ -126,35 +142,48 @@ function fnm2meta(
         fname = fname[6:lastindex(fname)]
     end
 
-    # Extract the MISR Orbit number and the following underscore character:
-    otest = fname[1:8]
-    if otest[1] == 'O'
-        misr_orbit_id = parse(Int, otest[2:7])
-        fname = fname[9:lastindex(fname)]
+    # Extract the MISR Orbit number and the following underscore character for all MISR product types except AGP:
+    if (misr_prdct_id != "AGP")
+        otest = fname[1:8]
+        if otest[1] == 'O'
+            misr_orbit_id = parse(Int, otest[2:7])
+            fname = fname[9:lastindex(fname)]
+        end
     end
 
-    # Extract the MISR Camera name and the following underscore character:
-    ctest = fname[1:3]
-    if is_valid_misr_camera(ctest[1:2])
-        misr_camera_id = ctest[1:2]
-        fname = fname[4:lastindex(fname)]
+    # Extract the MISR Camera name and the following underscore character for all MISR product type acronyms except AGP, L1GMP, L2TALBEDO, L2TCLASS, L2TCLOUD, L2TSTEREO, L2AERO, L2LAND:
+    if (misr_prdct_id != "AGP") &
+        (misr_prdct_id != "L1GMP") &
+        (misr_prdct_id != "L2TALBEDO") &
+        (misr_prdct_id != "L2TCLASS") &
+        (misr_prdct_id != "L2TCLOUD") &
+        (misr_prdct_id != "L2TSTEREO") &
+        (misr_prdct_id != "L2AERO") &
+        (misr_prdct_id != "L2LAND")
+        ctest = fname[1:3]
+        if is_valid_misr_camera(ctest[1:2])
+            misr_camera_id = ctest[1:2]
+            fname = fname[4:lastindex(fname)]
+        end
     end
 
     # Extract the MISR Version identifier at the end of fname:
     vtest = fname[1]
     if vtest == 'F'
         misr_version_id = fname
+        misr_site_id = ""
     else
-        xtest = findfirst("_F", fname)
+        xtest = findlast("_F", fname)
         misr_version_id = fname[xtest[2]:lastindex(fname)]
         fname = fname[1:xtest[1] - 1]
 
     # Extract the MISR Local Mode Site name and the following underscore character:
-        if (misr_prdct_id == "L1RELM") | (misr_prdct_id == "L1RTLM")
-            stest = fname[1:5]
-            if stest == "SITE_"
+        if ((misr_prdct_id == "L1RELM") |
+            (misr_prdct_id == "L1RTLM")) &
+            (fname[1:5] == "SITE_")
                 misr_site_id = fname
-            end
+        else
+            error("fnm2meta: Invalid MISR site name.")
         end
     end
 

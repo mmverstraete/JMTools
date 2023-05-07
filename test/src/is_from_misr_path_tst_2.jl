@@ -1,10 +1,10 @@
 """
-    bool = is_valid_misr_camera_tst_2()
+    bool = is_from_misr_path_tst_2()
 
 # Purpose:
-Generate the output of `is_valid_misr_camera.jl` for testing purposes. Test 2: For the MISR camera specification "*" (all 9 cameras).
+Generate the output of `is_from_misr_path.jl` for testing purposes. Test 2: Invalid combination of Path and Orbit.
 
-    # Licensing:
+# Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
     [Caltech license](https://github.com/nasa/MISR-Toolkit/blob/master/LICENSE).
 * Julia function: Copyright © 2023 Michel M. Verstraete,
@@ -20,17 +20,20 @@ julia> using JMTools
 
 julia> using Test
 
-julia> include(JMTools_test * "src/is_valid_misr_camera_tst_2.jl")
-is_valid_misr_camera_tst_2
+julia> include(JMTools_test * "src/is_from_misr_path_tst_2.jl")
+is_from_misr_path_tst_2
 
-julia> bool = is_valid_misr_camera_tst_2();
+julia> bool = is_from_misr_path_tst_2();
 
 julia> @test bool == false
 Test Passed
 ```
 """
-function is_valid_misr_camera_tst_2()
-    misr_camera = "*"
-    bool = is_valid_misr_camera(misr_camera)
+function is_from_misr_path_tst_2()
+    misr_path = 169
+    misr_orbit = 68050
+    bool = is_from_misr_path(misr_path, misr_orbit)
+
     return bool
+
 end

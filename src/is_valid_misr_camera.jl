@@ -22,7 +22,8 @@ Determine whether the specified `misr_camera` is a valid MISR camera name.
 * Mtk C Library: Version 1.5.
 * Julia function: Version 0.1.0 (2023-05-15).
 
-# Note(s): None.
+# Note(s):
+* In some contexts, the MISR Camera field can be specified as "*" to represent the set of 9 similar files, one for each of the 9 cameras, but in that case the eventual presence of this specification must be detected before evaluating the validity of the camera name.
 
 # Example(s):
 ```julia

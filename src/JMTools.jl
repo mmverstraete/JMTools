@@ -25,7 +25,11 @@ julia> using JMTools
 """
 module JMTools
 
+using Dates
+
 using JMtk15
+
+using StaticArrays
 
 using Statistics
 
@@ -44,14 +48,18 @@ const JMTools_docs = JMTools_root * "/docs/"
 export JMTools_docs
 
 
-include(JMTools_src * "current_misr_prdct_version.jl")
-export current_misr_prdct_version
+include(JMTools_src * "current_prdct_version.jl")
+export current_prdct_version
 include(JMTools_src * "fnm2meta.jl")
 export fnm2meta
 include(JMTools_src * "hr2lr.jl")
 export hr2lr
 include(JMTools_src * "is_from_misr_path.jl")
 export is_from_misr_path
+include(JMTools_src * "is_valid_ftype.jl")
+export is_valid_ftype
+include(JMTools_src * "is_valid_misr_band.jl")
+export is_valid_misr_band
 include(JMTools_src * "is_valid_misr_block.jl")
 export is_valid_misr_block
 include(JMTools_src * "is_valid_misr_camera.jl")
@@ -66,14 +74,42 @@ include(JMTools_src * "is_valid_misr_resolution.jl")
 export is_valid_misr_resolution
 include(JMTools_src * "is_valid_misr_site.jl")
 export is_valid_misr_site
+include(JMTools_src * "is_valid_misr_subprdct.jl")
+export is_valid_misr_subprdct
 include(JMTools_src * "is_valid_misrhr_prdct.jl")
 export is_valid_misrhr_prdct
+include(JMTools_src * "is_valid_misrhr_subprdct.jl")
+export is_valid_misrhr_subprdct
+include(JMTools_src * "is_valid_post_prdct.jl")
+export is_valid_post_prdct
+include(JMTools_src * "is_valid_post_subprdct.jl")
+export is_valid_post_subprdct
 include(JMTools_src * "mk_misr_fname.jl")
 export mk_misr_fname
 include(JMTools_src * "mk_misr_fpath.jl")
-export mk_misr_folder
+export mk_misr_fpath
 include(JMTools_src * "mk_misr_fspec.jl")
 export mk_misr_fspec
+include(JMTools_src * "mk_misrhr_fname.jl")
+export mk_misrhr_fname
+include(JMTools_src * "mk_post_fname.jl")
+export mk_post_fname
+include(JMTools_src * "mk_post_fpath.jl")
+export mk_post_fpath
+include(JMTools_src * "mk_post_fspec.jl")
+export mk_post_fspec
+include(JMTools_src * "orbit2date.jl")
+export orbit2date
+include(JMTools_src * "percentile.jl")
+export percentile
+include(JMTools_src * "set_location.jl")
+export set_location
+include(JMTools_src * "set_misr_resol.jl")
+export set_misr_resol
+include(JMTools_src * "set_misr_specs.jl")
+export set_misr_specs
+include(JMTools_src * "set_mroots.jl")
+export set_mroots
 
 
 

@@ -26,7 +26,7 @@ Determine whether the specified `misr_site` is a valid MISR site name, and retur
     - If `strict == false` (default), the output argument `misr_site_label` uses whatever string value is provided by the input keyword `misr_site`.
     - If `strict == true`, the input positional parameter `misr_site` must be one of the recognized MISR Local Mode site names and the output argument `misr_site_label` will contain the corresponding value. An error condition is thrown otherwise.
 
-# Returned value(s):
+# Return value(s):
 * `bool::Bool`: Whether `misr_site` is valid or not.
 * `misr_site_label::AbstractString`: The desired site label, properly formatted.
 
@@ -42,7 +42,7 @@ Determine whether the specified `misr_site` is a valid MISR site name, and retur
 
 # Note(s):
 * The list `recognized_misr_sites` of recognized MISR Local Mode site names contains a subset of the African sites that have been acquired in Local Mode. It can be expanded as needed to include other regions, but those labels should include neither blank spaces nor dash characters.
-* If the input positional argument is not recognized, or if one of the keyword arguments `cap` or `sep` is invalid, the returned value `bool` is set to `false` and the `misr_site_label` contains an error message describing the exception condition.
+* If the input positional argument is not recognized, or if one of the keyword arguments `cap` or `sep` is invalid, the return value `bool` is set to `false` and the `misr_site_label` contains an error message describing the exception condition.
 
 # Example(s):
 ```julia
@@ -108,9 +108,16 @@ function is_valid_misr_site(
     working_misr_sites = lowercase.(recognized_misr_sites)
     working_misr_sites = replace.(working_misr_sites, "_" => " ")
 
-    # Initialize the returned value `misr_site_label` to the input argument `misr_site` in lower case:
+    # Initialize the return value `misr_site_label` to the input argument `misr_site` in lower case:
     misr_site_label = lowercase(misr_site)
+
+    # Replace any underscore character by a blank space:
     misr_site_label = replace(misr_site_label, "_" => " ")
+
+    # Strip the prefix "site ", is it is present, for the purpose of checking its validity:
+    if (misr_site_label[1:5] == "site ")
+        misr_site_label = misr_site_label[6:lastindex(misr_site_label)]
+    end
 
     # If the input keyword `strict` is set, verify that this site is recognized:
     if strict
@@ -121,9 +128,8 @@ function is_valid_misr_site(
         end
     end
 
-    # Set the capitalization of the returned value `misr_site_label` as prescribed by the input keyword `cap`:
+    # Set the capitalization of the return value `misr_site_label` as prescribed by the input keyword `cap`:
     if cap == ""
-        misr_site_label = misr_site
         if sit == true
             misr_site_label = "Site " * misr_site_label
         end
@@ -147,7 +153,7 @@ function is_valid_misr_site(
         return bool, misr_site_label
     end
 
-    # Set the word separator of the returned value `misr_site_label` as prescribed by the input keyword `sep`:
+    # Set the word separator of the return value `misr_site_label` as prescribed by the input keyword `sep`:
     if (sep == "") | (sep == " ")
         bool = true
         return bool, misr_site_label

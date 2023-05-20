@@ -23,6 +23,7 @@ Determine whether the specified `misr_camera` is a valid MISR camera name.
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s):
+* The spelling of MISR band names follows the "Camel case" convention (first character in upper case and the rest of the string in lower case).
 * In some contexts, the MISR Camera field can be specified as "*" to represent the set of 9 similar files, one for each of the 9 cameras, but in that case the eventual presence of this specification must be detected before evaluating the validity of the camera name.
 
 # Example(s):
@@ -40,7 +41,7 @@ function is_valid_misr_camera(
     misr_camera::AbstractString
     )::Bool
 
-    # Set the list of valid camera names:
+    # Set the list of valid MISR camera names:
     valid_misr_camera = [
         "DF",
         "CF",
@@ -51,7 +52,6 @@ function is_valid_misr_camera(
         "BA",
         "CA", 
         "DA"]
-
     bool = (misr_camera in valid_misr_camera)
 
     return bool

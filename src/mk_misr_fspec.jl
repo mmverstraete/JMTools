@@ -3,7 +3,7 @@
         misr_orbit = 0, misr_camera = "", misr_site = "", misr_version = "")
 
 # Purpose:
-Return the specification (path and name) of the MISR data product file(s) corresponding to the specified input arguments.
+Return the specification (path and name) of the MISR data product file(s) corresponding to the specified arguments.
 
 # Required positional argument(s):
 * `misr_prdct::AbstractString`: The MISR product acronym.
@@ -70,10 +70,10 @@ julia> misr_fspec = mk_misr_fspec(misr_prdct, misr_path;
 function mk_misr_fspec(
     misr_prdct::AbstractString,
     misr_path::Integer;
-    misr_orbit::Integer = 0,
-    misr_camera::AbstractString = "",
-    misr_site::AbstractString = "",
-    misr_version::AbstractString = ""
+    misr_orbit::Union{Integer, Nothing} = nothing,
+    misr_camera::Union{AbstractString, Nothing} = nothing,
+    misr_site::Union{AbstractString, Nothing} = nothing,
+    misr_version::Union{AbstractString, Nothing} = nothing,
     )::Vector{AbstractString}
 
     # Set the name of the folder containing the data file(s):

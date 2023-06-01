@@ -26,8 +26,6 @@ Return the specification (path and name) of the MISR data product file(s) corres
 
 # Versioning:
 * Mtk C Library: Version 1.5.
-* JMtk15 package: Version 0.1.0 (2023-02-15).
-* JMTools package: Version 0.1.0 (2023-05-15).
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s):

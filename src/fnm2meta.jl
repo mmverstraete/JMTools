@@ -1,8 +1,8 @@
 """
-    misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id = fnm2meta(fspec)
+    fnm_meta = fnm2meta(fspec)
 
-# Purpose:
-This function disassembles the name of the MISR file specification `fspec` and returns the metadata elements.
+# Purpose(s):
+This function disassembles the MISR file specification `fspec` and returns the metadata elements as a `Named Tuple`.
 
 # Required positional argument(s):
 * `fspec::AbstractString`: The name of the MISR data file specification (optional path and name).
@@ -10,14 +10,18 @@ This function disassembles the name of the MISR file specification `fspec` and r
 # Optional keyword(s): None.
 
 # Returned value(s):
-* `misr_prdct_id::AbstractString`: The MISR product acronym.
-* `misr_mode_id::AbstractString`: The MISR Mode (Global or Local).
-* `misr_path_id::Integer`: The MISR Path number.
-* `misr_orbit_id::Integer`: The MISR Orbit number.
-* `misr_camera_id::AbstractString`: The MISR Camera name.
-* `misr_site_id::AbstractString`: The MISR Local Mode site name.
-* `misr_version_id::AbstractString`: The MISR Version identifier.
-* `ext_id::AbstractString`: The filename extension.
+* `fnm_meta::NamedTuple{(:misr_prdct_id, :misr_mode_id, :misr_path_id, :misr_orbit_id, :misr_camera_id, :misr_site_id, :misr_version_id, :ext_id),
+    Tuple{String, String, Int64, Int64, String, String, String, String}}`: The metadata elements retrieved from the MISR data file specification.
+
+where
+- `misr_prdct_id::AbstractString`: The MISR product acronym.
+- `misr_mode_id::AbstractString`: The MISR Mode (Global or Local).
+- `misr_path_id::Integer`: The MISR Path number.
+- `misr_orbit_id::Integer`: The MISR Orbit number.
+- `misr_camera_id::AbstractString`: The MISR Camera name.
+- `misr_site_id::AbstractString`: The MISR Local Mode site name.
+- `misr_version_id::AbstractString`: The MISR Version identifier.
+- `ext_id::AbstractString`: The filename extension.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -31,30 +35,40 @@ This function disassembles the name of the MISR file specification `fspec` and r
 
 # Note(s):
 * This function may execute faster than the JMtk15 functions `jMtkFileToPath`, `jMtkFileToOrbit`, etc. because it only analyzes the filename, and does not need to open the file (which does not need to exist or be accessible).
-* This function accepts only properly formatted MISR filenames as input. If the input argument `fspec` is unrecognized, all returned values are null.
+* This function accepts only properly formatted MISR filenames as input. If the input argument `fspec` is unrecognized, all returned values are set to `0` or a null string.
 * Returned values are also null if the corresponding component is not present in the input file specification.
 * This function does not check whether the returned values are valid.
+* Elements of the return value can be accessed by their rank or by their names: See the first example below.
 
 # Example(s):
 ```julia
-julia> misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id = fnm2meta("MISR_AM1_GP_GMP_P168_O068050_F03_0013.hdf")
-("L1GMP", "", 168, 68050, "", "", "F03_0013", ".hdf")
+julia> using JMTools
 
-julia> misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id = fnm2meta("MISR_AM1_GRP_ELLIPSOID_GM_P168_O068050_CF_F03_0024.hdf")
-("L1REGM", "GM", 168, 68050, "CF", "", "F03_0024", ".hdf")
+julia> fnm_meta = fnm2meta("MISR_AM1_GP_GMP_P168_O068050_F03_0013.hdf")
+(misr_prdct_id = "L1GMP", misr_mode_id = "", misr_path_id = 168, misr_orbit_id = 68050, misr_camera_id = "", misr_site_id = "", misr_version_id = "F03_0013", ext_id = ".hdf")
 
-julia> misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id = fnm2meta("MISR_AM1_GRP_TERRAIN_LM_P168_O068050_BA_SITE_SKUKUZA_F03_0024.hdf")
-("L1RTLM", "LM", 168, 68050, "BA", "SITE_SKUKUZA", "F03_0024", ".hdf")
+julia> fnm_meta[3]
+168
 
-julia> misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id = fnm2meta("MISR_AM1_AS_LAND_P168_O068050_F08_0023.nc")
-("L2LAND", "", 168, 68050, "", "", "F08_0023", ".nc")
+julia> fnm_meta.misr_orbit_id
+68050
+
+julia> fnm_meta = fnm2meta("MISR_AM1_GRP_ELLIPSOID_GM_P168_O068050_CF_F03_0024.hdf")
+(misr_prdct_id = "L1REGM", misr_mode_id = "GM", misr_path_id = 168, misr_orbit_id = 68050, misr_camera_id = "CF", misr_site_id = "", misr_version_id = "F03_0024", ext_id = ".hdf")
+
+julia> fnm_meta = fnm2meta("MISR_AM1_GRP_TERRAIN_LM_P168_O068050_BA_SITE_SKUKUZA_F03_0024.hdf")
+(misr_prdct_id = "L1RTLM", misr_mode_id = "LM", misr_path_id = 168, misr_orbit_id = 68050, misr_camera_id = "BA", misr_site_id = "SITE_SKUKUZA", misr_version_id = "F03_0024", ext_id = ".hdf")
+
+julia> fnm_meta = fnm2meta("MISR_AM1_AS_LAND_P168_O068050_F08_0023.nc")
+(misr_prdct_id = "L2LAND", misr_mode_id = "", misr_path_id = 168, misr_orbit_id = 68050, misr_camera_id = "", misr_site_id = "", misr_version_id = "F08_0023", ext_id = ".nc")
 ```
 """
 function fnm2meta(
     fspec::AbstractString
-    )::Tuple{AbstractString, AbstractString, Integer, Integer, AbstractString, AbstractString, AbstractString, AbstractString}
-
-    # Initialize the returned values:
+    )::NamedTuple{(:misr_prdct_id, :misr_mode_id, :misr_path_id, :misr_orbit_id, :misr_camera_id, :misr_site_id, :misr_version_id, :ext_id),
+        Tuple{String, String, Int64, Int64, String, String, String, String}}
+    
+    # Initialize the metadata elements:
     misr_prdct_id = ""
     misr_mode_id = ""
     misr_path_id = 0
@@ -187,6 +201,15 @@ function fnm2meta(
         end
     end
 
-    return misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id
+    fnm_meta = (misr_prdct_id = misr_prdct_id,
+        misr_mode_id = misr_mode_id,
+        misr_path_id = misr_path_id,
+        misr_orbit_id = misr_orbit_id,
+        misr_camera_id = misr_camera_id,
+        misr_site_id = misr_site_id,
+        misr_version_id = misr_version_id,
+        ext_id = ext_id)
+
+        return fnm_meta
 
 end

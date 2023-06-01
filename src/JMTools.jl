@@ -48,8 +48,6 @@ const JMTools_docs = JMTools_root * "/docs/"
 export JMTools_docs
 
 
-include(JMTools_src * "current_prdct_version.jl")
-export current_prdct_version
 include(JMTools_src * "fnm2meta.jl")
 export fnm2meta
 include(JMTools_src * "hr2lr.jl")
@@ -84,33 +82,50 @@ include(JMTools_src * "is_valid_post_prdct.jl")
 export is_valid_post_prdct
 include(JMTools_src * "is_valid_post_subprdct.jl")
 export is_valid_post_subprdct
-include(JMTools_src * "mk_misr_fname.jl")
-export mk_misr_fname
-include(JMTools_src * "mk_misr_fpath.jl")
-export mk_misr_fpath
-include(JMTools_src * "mk_misr_fspec.jl")
-export mk_misr_fspec
-include(JMTools_src * "mk_misrhr_fname.jl")
-export mk_misrhr_fname
-include(JMTools_src * "mk_post_fname.jl")
-export mk_post_fname
-include(JMTools_src * "mk_post_fpath.jl")
-export mk_post_fpath
-include(JMTools_src * "mk_post_fspec.jl")
-export mk_post_fspec
+include(JMTools_src * "lr2hr.jl")
+export lr2hr
+include(JMTools_src * "make_location.jl")
+export make_location
+include(JMTools_src * "make_misr_fname.jl")
+export make_misr_fname
+include(JMTools_src * "make_misr_fpath.jl")
+export make_misr_fpath
+# include(JMTools_src * "make_misr_fspec.jl")
+# export make_misr_fspec
+include(JMTools_src * "make_misrhr_fname.jl")
+export make_misrhr_fname
+include(JMTools_src * "make_misrhr_fpath.jl")
+export make_misrhr_fpath
+include(JMTools_src * "make_post_fname.jl")
+export make_post_fname
+include(JMTools_src * "make_post_fpath.jl")
+export make_post_fpath
+# include(JMTools_src * "make_post_fspec.jl")
+# export make_post_fspec
 include(JMTools_src * "orbit2date.jl")
 export orbit2date
 include(JMTools_src * "percentile.jl")
 export percentile
-include(JMTools_src * "set_location.jl")
-export set_location
+include(JMTools_src * "set_current_prdct_version.jl")
+export set_current_prdct_version
 include(JMTools_src * "set_misr_resol.jl")
 export set_misr_resol
 include(JMTools_src * "set_misr_specs.jl")
 export set_misr_specs
 include(JMTools_src * "set_mroots.jl")
 export set_mroots
-
+include(JMTools_src * "set_current_prdct_version.jl")
+export set_current_prdct_version
+include(JMTools_src * "sp_fspec.jl")
+export sp_fspec
+include(JMTools_src * "split_location.jl")
+export split_location
+include(JMTools_src * "split_misr_fpath.jl")
+export split_misr_fpath
+include(JMTools_src * "split_misrhr_fpath.jl")
+export split_misrhr_fpath
+include(JMTools_src * "split_post_fpath.jl")
+export split_post_fpath
 
 
 # include(JMTools_src * "find_matches.jl")

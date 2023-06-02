@@ -173,6 +173,18 @@ using Test
     @test mroots[3] == "/Volumes/Output/Post/"
     @test mroots[4] == "/Users/michel/Projects/MISR/Data/AGP/"
     @test mroots[5] == "/Users/michel/Projects/MISR/Scrap/"
+# ---------------------------------------------------------- split_location
+    include(JMTools_test * "src/split_location_tst_1.jl")
+    misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site = split_location_tst_1();
+    @test (misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site) == (0, 0, 0, 0, 0, 0, "")
+
+    include(JMTools_test * "src/split_location_tst_2.jl")
+    misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site = split_location_tst_2();
+    @test (misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site) == (168, 0, 68050, 0, 110, 0, "")
+
+    include(JMTools_test * "src/split_location_tst_3.jl")
+    misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site = split_location_tst_3();
+    @test (misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site) == (168, 170, 68050, 72000, 110, 115, "SITE_SKUKUZA")
 
 
 end

@@ -19,7 +19,7 @@ Generate the output of `make_misr_fpath.jl` for testing purposes. Test 1300: For
 
 # Versioning:
 * Mtk C Library: Version 1.5.
-* Julia function: Version 0.1.0 (2023-02-15).
+* Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s): None.
 

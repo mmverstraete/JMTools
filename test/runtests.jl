@@ -193,6 +193,18 @@ using Test
     include(JMTools_test * "src/split_location_tst_3.jl")
     misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site = split_location_tst_3();
     @test (misr_path1, misr_path2, misr_orbit1, misr_orbit2, misr_block1, misr_block2, misr_site) == (168, 170, 68050, 72000, 110, 115, "SITE_SKUKUZA")
+# ---------------------------------------------------------- split_misr_fpath
+    include(JMTools_test * "src/split_misr_fpath_tst_1300.jl")
+    mroot_misr, misr_path, misr_prdct = split_misr_fpath_tst_1300();
+    @test mroot_misr == "/Volumes/MISR_Data0/"
+    @test misr_path == 168
+    @test misr_prdct == "L1RTGM"
+
+    include(JMTools_test * "src/split_misr_fpath_tst_1500.jl")
+    mroot_misr, misr_path, misr_prdct = split_misr_fpath_tst_1500();
+    @test mroot_misr == ""
+    @test misr_path == 168
+    @test misr_prdct == "L1RCCM"
 
 
 end

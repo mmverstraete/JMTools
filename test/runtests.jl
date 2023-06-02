@@ -3,14 +3,6 @@ using Test
 
 # ==========================================================================================
 @testset "JMTools.jl" begin
-# ---------------------------------------------------------- current_misr_prdct_version
-    include(JMTools_test * "src/current_misr_prdct_version_tst_0100.jl")
-    misr_prdct_version = current_misr_prdct_version_tst_0100()
-    @test misr_prdct_version == "F01_24"
-
-    include(JMTools_test * "src/current_misr_prdct_version_tst_1000.jl")
-    misr_prdct_version = current_misr_prdct_version_tst_1000();
-    @test misr_prdct_version == "F03_0013"
 # ---------------------------------------------------------- fnm2meta
     include(JMTools_test * "src/fnm2meta_tst_0100.jl")
     misr_prdct_id, misr_mode_id, misr_path_id, misr_orbit_id, misr_camera_id, misr_site_id, misr_version_id, ext_id = fnm2meta_tst_0100();
@@ -89,16 +81,99 @@ using Test
     @test prdct_esdt == "MIANCAGP"
 # ---------------------------------------------------------- is_valid_misrhr_prdct
     include(JMTools_test * "src/is_valid_misrhr_prdct_tst_1.jl")
-    bool = is_valid_misrhr_prdct_tst_1();
+    bool, prdct_full_name = is_valid_misrhr_prdct_tst_1();
     @test bool == true
-# ---------------------------------------------------------- mk_misr_fname
-    include(JMTools_test * "src/mk_misr_fname_tst_0100.jl")
-    misr_fname = mk_misr_fname_tst_0100()
+    @test prdct_full_name == "Terrain Projected Radiance Global Mode Product at Native Spatial Resolution"
+# ---------------------------------------------------------- make_location
+    include(JMTools_test * "src/make_location_tst_1.jl")
+    location = make_location_tst_1();
+    @test location == "NOLOC"
+
+    include(JMTools_test * "src/make_location_tst_2.jl")
+    location = make_location_tst_2();
+    @test location == "P168"
+
+    include(JMTools_test * "src/make_location_tst_3.jl")
+    location = make_location_tst_3();
+    @test location == "P168+O068050+B110"
+
+    include(JMTools_test * "src/make_location_tst_4.jl")
+    location = make_location_tst_4();
+    @test location == "P168-P170+O068050-O072000+SITE_SKUKUZA"
+# ---------------------------------------------------------- make_misr_fname
+    include(JMTools_test * "src/make_misr_fname_tst_0100.jl")
+    misr_fname = make_misr_fname_tst_0100();
     @test misr_fname == ["MISR_AM1_AGP_P168_F01_24.hdf"]
 
-    include(JMTools_test * "src/mk_misr_fname_tst_0101.jl")
-    misr_fname = mk_misr_fname_tst_0101()
+    include(JMTools_test * "src/make_misr_fname_tst_0101.jl")
+    misr_fname = make_misr_fname_tst_0101();
     @test misr_fname == ["MISR_AM1_AGP_P168_F01_24.hdf"]
+# ---------------------------------------------------------- set_current_prdct_version
+    include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
+    misr_prdct_version = set_current_prdct_version_tst_0100();
+    @test misr_prdct_version == "F01_24"
+
+    include(JMTools_test * "src/set_current_prdct_version_tst_1000.jl")
+    misr_prdct_version = set_current_prdct_version_tst_1000();
+    @test misr_prdct_version == "F03_0013"
+# ---------------------------------------------------------- set_misr_specs
+    include(JMTools_test * "src/set_misr_specs_tst_1.jl")
+    misr_specs = set_misr_specs_tst_1();
+    @test misr_specs.nmodes == 2
+    @test misr_specs.mode_names == ["GM", "LM"]
+    @test misr_specs.ncameras == 9
+    @test misr_specs.camera_names == ["DF", "CF", "BF", "AF", "AN", "AA", "BA", "CA", "DA"]
+    @test misr_specs.camera_ids == [1:9]
+    @test misr_specs.camera_angles == [70.3, 60.2, 45.7, 26.2, 0.1, 26.2, 45.7, 60.2, 70.6]
+    @test misr_specs.nbands == 4
+    @test misr_specs.band_names == ["Blue", "Green", "Red", "NIR"]
+    @test misr_specs.band_ids == [1:4]
+    @test misr_specs.band_positions == [446.4, 557.5, 671.7, 866.4]
+    @test misr_specs.nchannels == 36
+    @test misr_specs.channel_names == [
+        "DF_Blue", "DF_Green", "DF_Red", "DF_NIR",
+        "CF_Blue", "CF_Green", "CF_Red", "CF_NIR",
+        "BF_Blue", "BF_Green", "BF_Red", "BF_NIR",
+        "AF_Blue", "AF_Green", "AF_Red", "AF_NIR",
+        "AN_Blue", "AN_Green", "AN_Red", "AN_NIR",
+        "AA_Blue", "AA_Green", "AA_Red", "AA_NIR",
+        "BA_Blue", "BA_Green", "BA_Red", "BA_NIR",
+        "CA_Blue", "CA_Green", "CA_Red", "CA_NIR",
+        "DA_Blue", "DA_Green", "DA_Red", "DA_NIR"]
+    @test misr_specs.channel_ids == [1:36]
+# ---------------------------------------------------------- set_mroots
+    include(JMTools_test * "src/set_mroots_tst_1.jl")
+    mroots = set_mroots_tst_1();
+    @test mroots[1] == "/dir/misr"
+    @test mroots[2] == "/dir/misrhr"
+    @test mroots[3] == "/dir/post"
+    @test mroots[4] == "/dir/agp"
+    @test mroots[5] == "/dir/scrap"
+
+    include(JMTools_test * "src/set_mroots_tst_2.jl")
+    mroots = set_mroots_tst_2();
+    @test mroots[1] == "/dir/misr"
+    @test mroots[2] == "/dir/misrhr/newdir"
+    @test mroots[3] == "/dir/post/nextcase"
+    @test mroots[4] == "/dir/agp"
+    @test mroots[5] == "/dir/scrap"
+
+    include(JMTools_test * "src/set_mroots_tst_3.jl")
+    mroots = set_mroots_tst_3();
+    @test mroots[1] == "ENV[\"MROOT_MISR\"] is not set."
+    @test mroots[2] == "ENV[\"MROOT_MISRHR\"] is not set."
+    @test mroots[3] == "ENV[\"MROOT_POST\"] is not set."
+    @test mroots[4] == "ENV[\"MROOT_AGP\"] is not set."
+    @test mroots[5] == "ENV[\"MROOT_SCRAP\"] is not set."
+
+    include(JMTools_test * "src/set_mroots_tst_4.jl")
+    mroots = set_mroots_tst_4();
+    @test mroots[1] == "/Volumes/MISR_Data0/"
+    @test mroots[2] == "/Volumes/MISR-HR/"
+    @test mroots[3] == "/Volumes/Output/Post/"
+    @test mroots[4] == "/Users/michel/Projects/MISR/Data/AGP/"
+    @test mroots[5] == "/Users/michel/Projects/MISR/Scrap/"
+
 
 end
 # ==========================================================================================

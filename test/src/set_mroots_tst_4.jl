@@ -2,7 +2,7 @@
     mroots = set_mroots_tst_4()
 
 # Purpose(s):
-Generate the output of `set_mroots.jl` for testing purposes. Test 4: Reset the environmental variables to their default values.
+* Generate the output of `set_mroots.jl` for testing purposes. Test 4: Reset the environmental variables to their default values.
 
 # Positional argument(s): None.
 

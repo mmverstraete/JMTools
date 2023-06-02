@@ -2,7 +2,7 @@
     mroots = set_mroots_tst_1()
 
 # Purpose(s):
-Generate the output of `set_mroots.jl` for testing purposes. Test 1: Set arbitrary values.
+* Generate the output of `set_mroots.jl` for testing purposes. Test 1: Set arbitrary values.
 
 # Positional argument(s): None.
 

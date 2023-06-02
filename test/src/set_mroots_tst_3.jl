@@ -2,7 +2,7 @@
     mroots = set_mroots_tst_3()
 
 # Purpose(s):
-Generate the output of `set_mroots.jl` for testing purposes. Test 3: Unset the environmental variables.
+* Generate the output of `set_mroots.jl` for testing purposes. Test 3: Unset the environmental variables.
 
 # Positional argument(s): None.
 

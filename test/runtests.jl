@@ -108,6 +108,14 @@ using Test
     include(JMTools_test * "src/make_misr_fname_tst_0101.jl")
     misr_fname = make_misr_fname_tst_0101();
     @test misr_fname == ["MISR_AM1_AGP_P168_F01_24.hdf"]
+# ---------------------------------------------------------- make_misr_fpath
+    include(JMTools_test * "src/make_misr_fpath_tst_0100.jl")
+    misr_fpath = make_misr_fpath_tst_0100();
+    @test misr_fpath == "~/P168/AGP/"
+
+    include(JMTools_test * "src/make_misr_fpath_tst_1300.jl")
+    misr_fpath = make_misr_fpath_tst_1300();
+    @test misr_fpath == "/Volumes/MISR_Data0/P168/L1RTGM/"
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();

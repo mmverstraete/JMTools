@@ -12,7 +12,20 @@
 * `misr_specs::Tuple`: Key technical specifications of the MISR instrument.
 
 # Algorithm:
-* This function defines and returns an immutable named `Tuple` containing key technical specifications of the MISR instrument. Elements of the `Tuple` can be accessed by their index (rank in the `Tuple`) or by their names.
+* This function defines and returns an immutable named `Tuple` containing key technical specifications of the MISR instrument. Elements of the `Tuple` can be accessed by their index (rank in the `Tuple`) or by their names, and include:
+- `nmodes`: The number (2) of MISR Modes (of operation).
+- `mode_names`: The mode names (`"GM"` for Global or `"LM"` for Local).
+- `ncameras`: The number (9) of MISR Cameras.
+- `camera_names`: The MISR Camera names, in the order `"DF"` ... to `"AN"` ... to `"DA"`.
+- `camera_ids`: The MISR Camera ids (`1:9`), in the same order.
+- `camera_angles`: The zenith angle of observation for the camera.
+- `nbands`: The number (4) of MISR spectral bands.
+- `band_names`: The names of the MISR spectral bands, in the order `"Blue"` ... to `"NIR"`.
+- `band_ids`: The MISR spectral band ids (`1:4`), in the same order.
+- `band_positions`: The spectral wavelength of the center of each of the MISR spectral bands.
+- `nchannels`: The number of data channels.
+- `channel_names`: The names of the data channels, in the order `"DF_Blue"` ... to `"DA_NIR"`.
+- `channel_ids`: The MISR data channel ids `(1:36)`, in the same order.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,

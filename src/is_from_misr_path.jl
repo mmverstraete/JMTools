@@ -1,17 +1,23 @@
 """
     bool = is_from_misr_path(misr_path, misr_orbit)
 
-# Purpose:
-Check whether the given `misr_orbit` belongs to the specified `misr_path`.
+# Purpose(s):
+* Check whether the given `misr_orbit` belongs to the specified `misr_path`.
 
-# Required positional argument(s):
+Positional argument(s):
 * `misr_path::Integer`: The MISR Path number.
 * `misr_orbit::Integer`: The MISR Orbit number.
 
-# Optional keyword(s): None.
+# Keyword argument(s): None.
 
-# Returned value(s):
-* `bool::Bool`: Whether the given `misr_orbit` belongs to the specified `misr_path`.
+# Return value(s):
+* `bool::Bool`: Whether the given `misr_orbit` belongs to the specified `misr_path` (`true`) or not (`false`).
+
+# Algorithm:
+* This function relies on the `JMtk15.jMtkOrbitToPath` function to determine to which `misr_path` the `misr_orbit` belongs.
+
+# Reference(s):
+* The MISR-HR Processing System Manual.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -23,23 +29,24 @@ Check whether the given `misr_orbit` belongs to the specified `misr_path`.
 * Mtk C Library: Version 1.5.
 * Julia function: Version 0.1.0 (2023-05-15).
 
-# Note(s): N/A.
+# Note(s): None.
 
-# Example(s):
+# Example 1:
 ```julia
 
 julia> using JMTools
 
-julia> using Test
-
-julia> misr_path = 168
-168
-
-julia> misr_orbit = 68050
-68050
-
-julia> bool = is_from_misr_path(misr_path, misr_orbit)
+julia> bool = is_from_misr_path(168, 68050)
 true
+```
+
+# Example 2:
+```julia
+
+julia> using JMTools
+
+julia> bool = is_from_misr_path(169, 68051)
+false
 ```
 """
 function is_from_misr_path(

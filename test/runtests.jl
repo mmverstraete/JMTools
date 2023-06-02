@@ -110,12 +110,12 @@ using Test
     @test misr_fname == ["MISR_AM1_AGP_P168_F01_24.hdf"]
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
-    misr_prdct_version = set_current_prdct_version_tst_0100();
-    @test misr_prdct_version == "F01_24"
+    prdct_version = set_current_prdct_version_tst_0100();
+    @test prdct_version == "F01_24"
 
     include(JMTools_test * "src/set_current_prdct_version_tst_1000.jl")
-    misr_prdct_version = set_current_prdct_version_tst_1000();
-    @test misr_prdct_version == "F03_0013"
+    prdct_version = set_current_prdct_version_tst_1000();
+    @test prdct_version == "F03_0013"
 # ---------------------------------------------------------- set_misr_specs
     include(JMTools_test * "src/set_misr_specs_tst_1.jl")
     misr_specs = set_misr_specs_tst_1();

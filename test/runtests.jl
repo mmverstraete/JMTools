@@ -54,6 +54,11 @@ using Test
     bool, misr_block_string = is_valid_misr_block_tst_168();
     @test bool == true
     @test misr_block_string == "B168"
+
+    include(JMTools_test * "src/is_valid_misr_block_tst_246.jl")
+    bool, misr_block_string = is_valid_misr_block_tst_246();
+    @test bool == false
+    @test misr_block_string == ""
 # ---------------------------------------------------------- is_valid_misr_camera
     include(JMTools_test * "src/is_valid_misr_camera_tst_1.jl")
     bool = is_valid_misr_camera_tst_1();
@@ -67,11 +72,21 @@ using Test
     bool, misr_orbit_string = is_valid_misr_orbit_tst_068050();
     @test bool == true
     @test misr_orbit_string == "O068050"
+
+    include(JMTools_test * "src/is_valid_misr_orbit_tst_000900.jl")
+    bool, misr_orbit_string = is_valid_misr_orbit_tst_000900();
+    @test bool == false
+    @test misr_orbit_string == ""
 # ---------------------------------------------------------- is_valid_misr_path
     include(JMTools_test * "src/is_valid_misr_path_tst_168.jl")
     bool, misr_path_string = is_valid_misr_path_tst_168();
     @test bool == true
     @test misr_path_string == "P168"
+
+    include(JMTools_test * "src/is_valid_misr_path_tst_268.jl")
+    bool, misr_path_string = is_valid_misr_path_tst_268();
+    @test bool == false
+    @test misr_path_string == ""
 # ---------------------------------------------------------- is_valid_misr_prdct
     include(JMTools_test * "src/is_valid_misr_prdct_tst_0100.jl")
     bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct_tst_0100();
@@ -133,6 +148,14 @@ using Test
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_BA_F04_0025.hdf",
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_CA_F04_0025.hdf",
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_DA_F04_0025.hdf"]
+# ---------------------------------------------------------- make_misrhr_fpath
+    include(JMTools_test * "src/make_misrhr_fpath_tst_L1B3168110_1.jl")
+    misrhr_fpath = make_misrhr_fpath_tst_L1B3168110_1();
+    @test misrhr_fpath == "~/P168/B110/L1B3/"
+
+    include(JMTools_test * "src/make_misrhr_fpath_tst_L1B3168110_2.jl")
+    misrhr_fpath = make_misrhr_fpath_tst_L1B3168110_2();
+    @test misrhr_fpath == "/Volumes/MISR-HR/P168/B110/L1B3/"
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();

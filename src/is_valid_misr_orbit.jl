@@ -1,17 +1,23 @@
 """
     bool, misr_orbit_string = is_valid_misr_orbit(misr_orbit)
 
-# Purpose:
-Determine whether the specified `misr_orbit` is a valid MISR Orbit number, and return the string version of the MISR Path number prepended with the letter "O".
+# Purpose(s):
+* Determine whether the specified `misr_orbit` is a valid MISR Orbit number, and return the string version of the MISR Orbit number prepended with the letter 'O'.
 
-# Required positional argument(s):
+# Positional argument(s):
 * `misr_orbit::Integer`: The MISR Orbit number.
 
-# Optional keyword(s): None.
+# Keyword argument(s): None.
 
-# Returned value(s):
-* `bool::Bool`: Whether `misr_orbit` is valid or not.
-* `misr_orbit_string::AbstractString`: The string version of the MISR Orbit number.
+# Return value(s):
+* `bool::Bool`: Whether `misr_orbit` is a valid MISR Orbit number or not.
+* `misr_orbit_string::AbstractString`: The string version of the MISR Orbit number, prepended with the letter `'O'`.
+
+# Algorithm:
+This function checks that the value of the positional argument `misr_orbit` lies within the allowed range (995 to 200,000), and if so, also returns a string version of that value formatted as `"Oxxxxxx"` where `xxxxxx` is the `misr_orbit` number padded with `0` to make a 6-digit number.
+
+# Reference(s):
+* The MISR-HR Processing System Manual.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -23,16 +29,22 @@ Determine whether the specified `misr_orbit` is a valid MISR Orbit number, and r
 * Mtk C Library: Version 1.5.
 * Julia function: Version 0.1.0 (2023-05-15).
 
-# Note(s): N/A.
+# Note(s):
+* Orbit number 995 is the first one for which actual measurements are available.
 
-# Example(s):
+# Example 1:
 ```julia
 julia> using JMTools
 
 julia> bool, misr_orbit_string = is_valid_misr_orbit(68050)
 (true, "O068050")
+```
 
-julia> bool, misr_orbit_string = is_valid_misr_orbit(994)
+# Example 2:
+```
+juljulia> using JMTools
+
+ia> bool, misr_orbit_string = is_valid_misr_orbit(994)
 (false, "")
 ```
 """

@@ -1,8 +1,8 @@
 """
-    bool, misr_orbit_string = is_valid_misr_orbit_tst_068050()
+    bool, misr_orbit_string = is_valid_misr_orbit_tst_000900()
 
 # Purpose(s):
-* Generate the output of `is_valid_misr_orbit.jl` for testing purposes. Test 068050: For the MISR Orbit number 68050.
+* Generate the output of `is_valid_misr_orbit.jl` for testing purposes. Test 000900: For the MISR Orbit number 900.
 
 # Positional argument(s): None.
 
@@ -28,20 +28,20 @@ julia> using JMTools
 
 julia> using Test
 
-julia> include(JMTools_test * "src/is_valid_misr_orbit_tst_068050.jl")
-is_valid_misr_orbit_tst_068050
+julia> include(JMTools_test * "src/is_valid_misr_orbit_tst_000900.jl")
+is_valid_misr_orbit_tst_000900
 
-julia> bool, misr_orbit_string = is_valid_misr_orbit_tst_068050();
+julia> bool, misr_orbit_string = is_valid_misr_orbit_tst_000900();
 
-julia> @test bool == true
+julia> @test bool == false
 Test Passed
 
-julia> @test misr_orbit_string == "O068050"
+julia> @test misr_orbit_string == ""
 Test Passed
 ```
 """
-function is_valid_misr_orbit_tst_068050()
-    misr_orbit = 68050
+function is_valid_misr_orbit_tst_000900()
+    misr_orbit = 900
     bool, misr_orbit_string = is_valid_misr_orbit(misr_orbit)
     return bool, misr_orbit_string
 end

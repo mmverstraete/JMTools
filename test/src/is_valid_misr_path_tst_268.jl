@@ -1,8 +1,8 @@
 """
-    bool, misr_path_string = is_valid_misr_path_tst_168()
+    bool, misr_path_string = is_valid_misr_path_tst_268()
 
 # Purpose(s):
-* Generate the output of `is_valid_misr_path.jl` for testing purposes. Test 168: For the MISR Path 168.
+* Generate the output of `is_valid_misr_path.jl` for testing purposes. Test 268: For the MISR Path 268.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -20,20 +20,21 @@ julia> using JMTools
 
 julia> using Test
 
-julia> include(JMTools_test * "src/is_valid_misr_path_tst_168.jl")
-is_valid_misr_path_tst_168
+julia> include(JMTools_test * "src/is_valid_misr_path_tst_268.jl")
+is_valid_misr_path_tst_268
 
-julia> bool, misr_path_string = is_valid_misr_path_tst_168();
+julia> bool, misr_path_string = is_valid_misr_path_tst_268()
+(false, "")
 
-julia> @test bool == true
+julia> @test bool == false
 Test Passed
 
-julia> @test misr_path_string == "P168"
+julia> @test misr_path_string == ""
 Test Passed
 ```
 """
-function is_valid_misr_path_tst_168()
-    misr_path = 168
+function is_valid_misr_path_tst_268()
+    misr_path = 268
     bool, misr_path_string = is_valid_misr_path(misr_path)
     return bool, misr_path_string
 end

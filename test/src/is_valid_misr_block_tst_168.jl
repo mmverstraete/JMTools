@@ -1,8 +1,16 @@
 """
     bool, misr_block_string = is_valid_misr_block_tst_168()
 
-# Purpose:
-Generate the output of `is_valid_misr_block.jl` for testing purposes. Test 168: For a MISR Block number 168.
+# Purpose(s):
+* Generate the output of `is_valid_misr_block.jl` for testing purposes. Test 168: For a MISR Block number 168.
+
+# Positional argument(s): None.
+
+# Keyword argument(s): None.
+
+# Return value(s):
+* `bool::Bool`: Whether `misr_block` is a valid MISR Block number or not.
+* `misr_block_string::AbstractString`: The string version of the MISR Block number, prepended with the letter `'B'`.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -14,7 +22,7 @@ Generate the output of `is_valid_misr_block.jl` for testing purposes. Test 168: 
 * Mtk C Library: Version 1.5.
 * Julia function: Version 0.1.0 (2023-05-15).
 
-# Example:
+# Example 1:
 ```julia
 julia> using JMTools
 

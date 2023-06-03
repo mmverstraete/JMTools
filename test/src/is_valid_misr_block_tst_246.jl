@@ -1,8 +1,8 @@
 """
-    bool, misr_block_string = is_valid_misr_block_tst_005()
+    bool, misr_block_string = is_valid_misr_block_tst_246()
 
 # Purpose(s):
-* Generate the output of `is_valid_misr_block.jl` for testing purposes. Test 005: For a MISR Block number 5.
+* Generate the output of `is_valid_misr_block.jl` for testing purposes. Test 246: For a MISR Block number 246.
 
 # Positional argument(s): None.
 
@@ -28,20 +28,20 @@ julia> using JMTools
 
 julia> using Test
 
-julia> include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
-is_valid_misr_block_tst_005
+julia> include(JMTools_test * "src/is_valid_misr_block_tst_246.jl")
+is_valid_misr_block_tst_246
 
-julia> bool, misr_block_string = is_valid_misr_block_tst_005();
+julia> bool, misr_block_string = is_valid_misr_block_tst_246();
 
-julia> @test bool == true
+julia> @test bool == false
 Test Passed
 
-julia> @test misr_block_string == "B005"
+julia> @test misr_block_string == ""
 Test Passed
 ```
 """
-function is_valid_misr_block_tst_005()
-    misr_block = 5
+function is_valid_misr_block_tst_246()
+    misr_block = 246
     bool, misr_block_string = is_valid_misr_block(misr_block)
     return bool, misr_block_string
 end

@@ -4,6 +4,14 @@
 # Purpose(s):
 * Generate the output of `is_valid_misr_path.jl` for testing purposes. Test 168: For the MISR Path 168.
 
+# Positional argument(s): None.
+
+# Keyword argument(s): None.
+
+# Return value(s):
+* `bool::Bool`: Whether `misr_path` is a valid MISR Path number or not.
+* `misr_path_string::AbstractString`: The string version of the MISR Path number, prepended with the letter `'P'`.
+
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
     [Caltech license](https://github.com/nasa/MISR-Toolkit/blob/master/LICENSE).
@@ -35,5 +43,7 @@ Test Passed
 function is_valid_misr_path_tst_168()
     misr_path = 168
     bool, misr_path_string = is_valid_misr_path(misr_path)
+
     return bool, misr_path_string
+
 end

@@ -2,7 +2,7 @@
     misr_fpath = make_misr_fpath_tst_1300()
 
 # Purpose(s):
-Generate the output of `make_misr_fpath.jl` for testing purposes. Test 1300: For a MISR L1RTGM file.
+* Generate the output of `make_misr_fpath.jl` for testing purposes. Test 1300: For a MISR L1RTGM file.
 
 # Positional argument(s): None.
 

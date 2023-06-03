@@ -9,7 +9,7 @@
 
 # Keyword argument(s): None.
 
-# Returned value(s):
+# Return value(s):
 * `prdct_version::AbstractString`: The current version label of the specified MISR, MISR-HR or post-processing product acronym.
 
 # Algorithm:

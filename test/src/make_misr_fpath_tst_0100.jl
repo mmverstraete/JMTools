@@ -2,7 +2,7 @@
     misr_fpath = make_misr_fpath_tst_0100()
 
 # Purpose(s):
-Generate the output of `make_misr_fpath.jl` for testing purposes. Test 0100: For a MISR AGP file.
+* Generate the output of `make_misr_fpath.jl` for testing purposes. Test 0100: For a MISR AGP file.
 
 # Positional argument(s): None.
 

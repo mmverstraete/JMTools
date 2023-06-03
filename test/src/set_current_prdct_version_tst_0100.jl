@@ -8,7 +8,7 @@ Generate the output of `set_current_prdct_version.jl` for testing purposes. Test
 
 # Keyword argument(s): None.
 
-# Returned value(s):
+# Return value(s):
 * `prdct_version::AbstractString`: The current version label of the specified MISR, MISR-HR or post-processing product acronym.
 
 # Licensing:

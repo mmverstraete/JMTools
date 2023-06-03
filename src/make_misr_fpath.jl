@@ -33,7 +33,7 @@
 * This function assumes that MISR data file(s) are organized as described in the MISR-HR Processing System User Manual.
 * This function does not verify that the output path name `misr_fpath` exists.
 * Function `set_mroots.jl` should be called prior to this function to temporarily define the MISR root directory. To make those definitions permanent, add them to the configuration file `.zshenv`.
-* The directory name suggested by this function can be overridden by specifyng an alternate value in function `mk_misr_fspec.jl`.
+* The directory name suggested by this function can be overridden by specifyng an alternate value in function `make_misr_fspec.jl`.
 
 # Example 1:
 ```julia

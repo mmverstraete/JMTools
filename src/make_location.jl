@@ -19,7 +19,7 @@
 * `misr_block2::Union{Integer, Nothing} = nothing`: The last MISR Block number.
 * `misr_site::Union{AbstractString, Nothing} = nothing`: The MISR Local Mode Site name.
 
-# Returned value(s):
+# Return value(s):
 * `location::AbstractString`: A `string` describing the geographical area covered by a MISR or MISR-HR deliverable product.
 
 # Algorithm:

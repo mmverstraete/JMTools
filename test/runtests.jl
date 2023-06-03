@@ -116,6 +116,23 @@ using Test
     include(JMTools_test * "src/make_misr_fpath_tst_1300.jl")
     misr_fpath = make_misr_fpath_tst_1300();
     @test misr_fpath == "/Volumes/MISR_Data0/P168/L1RTGM/"
+# ---------------------------------------------------------- make_misr_fspec
+    include(JMTools_test * "src/make_misr_fspec_tst_1300.jl")
+    misr_fspec = make_misr_fspec_tst_1300();
+    @test misr_fspec[1] == "/Volumes/MISR_Data0/P168/L1RTGM/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.hdf"
+
+    include(JMTools_test * "src/make_misr_fspec_tst_1500.jl")
+    misr_fspec = make_misr_fspec_tst_1500();
+    @test misr_fspec == [
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_DF_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_CF_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_BF_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_AF_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_AN_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_AA_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_BA_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_CA_F04_0025.hdf",
+        "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_DA_F04_0025.hdf"]
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();

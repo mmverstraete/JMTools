@@ -94,6 +94,13 @@ using Test
     @test prdct_name == "AGP"
     @test prdct_full_name == "Ancillary Geographic Product"
     @test prdct_esdt == "MIANCAGP"
+
+    include(JMTools_test * "src/is_valid_misr_prdct_tst_2000.jl")
+    bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct_tst_2000();
+    @test bool == true
+    @test prdct_name == "GRP_RCCM_GM"
+    @test prdct_full_name == "Radiometric Camera-by-Camera Cloud Mask Product"
+    @test prdct_esdt == "MIRCCM"
 # ---------------------------------------------------------- is_valid_misrhr_prdct
     include(JMTools_test * "src/is_valid_misrhr_prdct_tst_1.jl")
     bool, prdct_full_name = is_valid_misrhr_prdct_tst_1();

@@ -1,8 +1,8 @@
 """
-    bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct_tst_0100()
+    bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct_tst_2000()
 
 # Purpose(s):
-* Generate the output of `is_valid_misr_prdct.jl` for testing purposes. Test 0100: For the MISR AGP product.
+* Generate the output of `is_valid_misr_prdct.jl` for testing purposes. Test 2000: For the MISR L1RCCM product.
 
 # Positional argument(s): None.
 
@@ -30,26 +30,26 @@ julia> using JMTools
 
 julia> using Test
 
-julia> include(JMTools_test * "src/is_valid_misr_prdct_tst_0100.jl")
-is_valid_misr_prdct_tst_0100
+julia> include(JMTools_test * "src/is_valid_misr_prdct_tst_2000.jl")
+is_valid_misr_prdct_tst_2000
 
-julia> bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct_tst_0100();
+julia> bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct_tst_2000();
 
 julia> @test bool == true
 Test Passed
 
-julia> @test prdct_name == "AGP"
+julia> @test prdct_name == "GRP_RCCM_GM"
 Test Passed
 
-julia> @test prdct_full_name == "Ancillary Geographic Product"
+julia> @test prdct_full_name == "Radiometric Camera-by-Camera Cloud Mask Product"
 Test Passed
 
-julia> @test prdct_esdt == "MIANCAGP"
+julia> @test prdct_esdt == "MIRCCM"
 Test Passed
 ```
 """
-function is_valid_misr_prdct_tst_0100()
-    misr_prdct = "AGP"
+function is_valid_misr_prdct_tst_2000()
+    misr_prdct = "L1RCCM"
     bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct(misr_prdct)
     return bool, prdct_name, prdct_full_name, prdct_esdt
 end

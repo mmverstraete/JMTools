@@ -1,8 +1,8 @@
 """
     bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct(misr_prdct)
 
-# Purpose:
-Determine whether the specified `misr_prdct` is a valid MISR product acronym, and return the product label used in filenames, the full MISR product name, and the MISR product Earth Science Data Type (ESDT) useful to acquire data files on the NASA ASDC Data Pool.
+# Purpose(s):
+* Determine whether the specified `misr_prdct` is a valid MISR product acronym, and return the product label used in filenames, the full MISR product name, and the MISR product Earth Science Data Type (ESDT) used to acquire data files on the NASA ASDC Data Pool.
 
 # Positional argument(s):
 * `misr_prdct::AbstractString`: The MISR product acronym.
@@ -18,6 +18,9 @@ Determine whether the specified `misr_prdct` is a valid MISR product acronym, an
 # Algorithm:
 * This function verifies that the positional argument `misr_prdct` is a valid MISR product acronym and returns the product label, the full product name and the corresponding ESDT label.
 
+# Reference(s):
+* The MISR-HR Processing System Manual.
+
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
     [Caltech license](https://github.com/nasa/MISR-Toolkit/blob/master/LICENSE).
@@ -31,15 +34,25 @@ Determine whether the specified `misr_prdct` is a valid MISR product acronym, an
 # Note(s):
 * This function currently recognizes only the MISR product acronyms defined below; additional acronyms can be added as needed.
 
-# Example(s):
+# Example 1:
 ```julia
 julia> using JMTools
 
 julia> bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct("L1RTGM")
 (true, "GRP_TERRAIN_GM", "Terrain Projected Radiance Global Mode Product", "MI1B2E")
+```
+
+# Example 2:
+```julia
+julia> using JMTools
 
 julia> bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct("AGP")
 (true, "AGP", "Ancillary Geographic Product", "MIANCAGP")
+```
+
+# Example 3:
+```julia
+julia> using JMTools
 
 julia> bool, prdct_name, prdct_full_name, prdct_esdt = is_valid_misr_prdct("agp")
 (false, "", "", "")

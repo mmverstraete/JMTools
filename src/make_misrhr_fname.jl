@@ -5,7 +5,7 @@
         tip_suffix = tip_suffix, ext = ext)
 
 # Purpose(s):
-* Return a Vector of one or more name(s) of MISR-HR product file(s) corresponding to the arguments.
+* Return a `Vector` of one or nine name(s) of MISR-HR product file(s) corresponding to the arguments.
 
 # Positional argument(s):
 * `misrhr_prdct::AbstractString`: The MISR-HR product acronym.
@@ -22,7 +22,7 @@
 * `ext::Union{AbstractString, Nothing} = nothing`: The file extension.
 
 # Return value(s):
-* `misrhr_fname::AbstractString`: A `Vector` of strings containing the name(s) of the MISR-HR product file(s) corresponding to the arguments.
+* `misrhr_fname::Vector{AbstractString}`: The name(s) of the one or nine MISR-HR product file(s) corresponding to the arguments.
 
 # Algorithm:
 * This function assembles the filename of the MISR-HR product corresponding to the arguments as follows:
@@ -47,6 +47,7 @@
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s):
+* This function accepts "*" as a valid `misr_camera` specification, in which case the output value `misrhr_fname` is a `Vector` of 9 values, one for each camera.
 * This function verifies the validity of all arguments except `misr_version` and `misrhr_version`, and does not check the existence or validity of the output value.
 * This function always returns a `Vector` of 1 or 9 file name(s).
 
@@ -169,15 +170,17 @@ function make_misrhr_fname(
     end
 
     # All MISR-HR files include a Version identifier:
-    if misrhr_version === nothing
-        misrhr_version = set_current_prdct_version(misrhr_prdct)
-    elseif misrhr_version === ""
+    if (misrhr_version === nothing) | (misrhr_version === "")
         misrhr_version = set_current_prdct_version(misrhr_prdct)
     end
 
     # All MISR-HR files include a file extension:
     if ext === nothing
-        ext = ".hdf"
+        if first(misrhr_version, 1) == 'v'
+            ext = ".nc"
+        else
+            ext = ".hdf"
+        end
     end
 
     # Get the technical specifications of the MISR instrument:

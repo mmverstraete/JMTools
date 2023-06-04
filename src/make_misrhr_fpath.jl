@@ -3,7 +3,7 @@
         misrhr_subprdct = misrhr_subprdct)
 
 # Purpose(s):
-* Generate the full name `misrhr_fpath` of the directory containing the MISR-HR product file(s) for `misrhr_prdct` and `misrhr_subprdct` along MISR Path number `misr_path` and for MISR Block number `misr_block`.
+* Return the full name `misrhr_fpath` of the directory containing the MISR-HR product file(s) corresponding to the arguments.
 
 # Positional argument(s):
 * `misrhr_prdct::AbstractString`: The MISR-HR product acronym.
@@ -17,7 +17,7 @@
 * `misrhr_fpath::AbstractString`: The full name of the directory containing MISR-HR data file(s) for the specified product, Path and Block numbers.
 
 # Algorithm:
-* This function generates the full path name of the directory containing the MISR-HR products `misrhr_prdct` and `misrhr_subprdct` for Path `misr_path` and Block `misr_block` by concatenating the MISR root directory set by function `set_mroots.jl` in environment variable `MROOT_MISRHR` and the appropriate directory relative to that root.
+* This function generates the full path name of the directory containing the MISR-HR products `misrhr_prdct` and `misrhr_subprdct` for Path `misr_path` and Block `misr_block` by concatenating the MISR-HR root directory set by function `set_mroots.jl` in environment variable `MROOT_MISRHR` and the appropriate directory relative to that root.
 
 # Reference(s):
 * The MISR-HR Processing System Manual.

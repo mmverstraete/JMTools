@@ -1,16 +1,22 @@
 """
     bool = is_valid_misr_camera(misr_camera)
 
-# Purpose:
-Determine whether the specified `misr_camera` is a valid MISR camera name.
+# Purpose(s):
+* Determine whether the specified `misr_camera` is a valid MISR camera name.
 
-# Required positional argument(s):
+# Positional argument(s):
 * `misr_camera::AbstractString`: The MISR camera name.
 
-# Optional keyword(s): None.
+# Keyword argument(s): None.
 
-# Returned value(s):
+# Return value(s):
 * `bool::Bool`: Whether `misr_camera` is valid or not.
+
+# Algorithm:
+* This function checks that the value of the positional argument `misr_camera` is valid.
+
+# Reference(s):
+* The MISR-HR Processing System Manual.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -26,12 +32,17 @@ Determine whether the specified `misr_camera` is a valid MISR camera name.
 * The spelling of MISR band names follows the "Camel case" convention (first character in upper case and the rest of the string in lower case).
 * In some contexts, the MISR Camera field can be specified as "*" to represent the set of 9 similar files, one for each of the 9 cameras, but in that case the eventual presence of this specification must be detected before evaluating the validity of the camera name.
 
-# Example(s):
+# Example 1:
 ```julia
 julia> using JMTools
 
 julia> bool = is_valid_misr_camera("AA")
 true
+```
+
+# Example 2:
+```julia
+julia> using JMTools
 
 julia> bool = is_valid_misr_camera("df")
 false

@@ -32,8 +32,8 @@
 # Note(s):
 * This function assumes that MISR data file(s) are organized as described in the MISR-HR Processing System User Manual.
 * This function does not verify that the output path name `misr_fpath` exists.
-* Function `set_mroots.jl` should be called prior to this function to temporarily define the MISR root directory. To make those definitions permanent, add them to the configuration file `.zshenv`.
-* The directory name suggested by this function can be overridden by specifyng an alternate value in function `make_misr_fspec.jl`.
+* Function `set_mroots.jl` should be called prior to this function to temporarily define the MISR root directory. To make those definitions permanent, add them to the configuration file `.zshenv` (or equivalent).
+* The directory name suggested by this function can be overridden by specifying an alternate value in function `make_misr_fspec.jl`.
 
 # Example 1:
 ```julia
@@ -91,7 +91,7 @@ function make_misr_fpath(
         misr_fpath = misr_fpath * '/'
     end
 
-    # Add the name of the folders containing the data file(s) for the specified MISR product acronym and Path:
+    # Add the name of the folder containing the data file(s) for the specified MISR product acronym and Path:
     misr_fpath = misr_fpath * misr_path_string * '/' * misr_prdct * '/'
 
     return misr_fpath

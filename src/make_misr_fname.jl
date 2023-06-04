@@ -18,7 +18,7 @@
 * `ext::Union{AbstractString, Nothing} = nothing`: The file extension.
 
 # Return value(s):
-* `misr_fname::Vector{AbstractString}`: The name(s) of the MISR data file(s) correponding to the arguments.
+* `misr_fname::Vector{AbstractString}`: The name(s) of the MISR data file(s) corresponding to the arguments.
 
 # Algorithm:
 * This function assembles the filename of the MISR data set corresponding to the arguments as follows:
@@ -27,7 +27,7 @@
 - If the keyword argument `misr_camera` is expected but not provided, an error condition is raised.
 - If the keyword argument `misr_site` is expected but not provided, an error condition is raised.
 - If the keyword argument `misr_version` is not provided, a default value is given by the function `set_current_prdct_version.jl`.
-- If the keyword argument `ext` is not provided, a default value is given depending on the positional argument `misr_prdct`.
+- If the keyword argument `ext` is not provided, a default value is set depending on the positional argument `misr_prdct`.
 
 # Reference(s):
 * The MISR-HR Processing System Manual.
@@ -45,7 +45,7 @@
 # Note(s):
 * This function improves on the MISR Toolkit function `MtkMakeFilename.c` (or `jMtkMakeFilename.jl`) because (1) it only requires the arguments actually needed (i.e., it ignores unnecessary inputs), (2) it generates a meaningful error if a necessary input is missing or invalid, and (3) it provides default values to `misr_version` and `ext`.
 * This function accepts "*" as a valid `misr_camera` specification, in which case the output value `misr_fname` is a `Vector` of 9 values, one for each camera.
-* This function verifies the validity of all arguments except `misr_version`, but does not check the existence or validity of the output value.
+* This function verifies the validity of all arguments except `misr_version`, and does not check the existence or validity of the output value.
 * This function always returns a `Vector` of 1 or 9 file name(s).
 
 # Example 1:

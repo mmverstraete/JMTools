@@ -4,7 +4,7 @@
         misr_site = misr_site, misr_version = misr_version, ext = ext)
 
 # Purpose(s):
-* Return a Vector of one or more name(s) of MISR data file(s) corresponding to the arguments.
+* Return a `Vector` of one or nine name(s) of MISR data file(s) corresponding to the arguments.
 
 # Positional argument(s):
 * `misr_prdct::AbstractString`: The MISR product acronym.
@@ -18,7 +18,7 @@
 * `ext::Union{AbstractString, Nothing} = nothing`: The file extension.
 
 # Return value(s):
-* `misr_fname::Vector{AbstractString}`: The name(s) of the MISR data file(s) corresponding to the arguments.
+* `misr_fname::Vector{AbstractString}`: The name(s) of the one or nine MISR data file(s) corresponding to the arguments.
 
 # Algorithm:
 * This function assembles the filename of the MISR data set corresponding to the arguments as follows:

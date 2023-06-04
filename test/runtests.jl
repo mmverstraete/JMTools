@@ -123,6 +123,19 @@ using Test
     include(JMTools_test * "src/make_misr_fname_tst_0101.jl")
     misr_fname = make_misr_fname_tst_0101();
     @test misr_fname == ["MISR_AM1_AGP_P168_F01_24.hdf"]
+
+    include(JMTools_test * "src/make_misr_fname_tst_1300.jl")
+    misr_fname = make_misr_fname_tst_1300();
+    @test misr_fname == [
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DF_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CF_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BF_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AF_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AA_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.hdf"]
 # ---------------------------------------------------------- make_misr_fpath
     include(JMTools_test * "src/make_misr_fpath_tst_0100.jl")
     misr_fpath = make_misr_fpath_tst_0100();
@@ -136,6 +149,10 @@ using Test
     misr_fspec = make_misr_fspec_tst_1300();
     @test misr_fspec[1] == "/Volumes/MISR_Data0/P168/L1RTGM/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.hdf"
 
+    include(JMTools_test * "src/make_misr_fspec_tst_1301.jl")
+    misr_fspec = make_misr_fspec_tst_1301();
+    @test misr_fspec[1] == "my_path/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.hdf"
+
     include(JMTools_test * "src/make_misr_fspec_tst_1500.jl")
     misr_fspec = make_misr_fspec_tst_1500();
     @test misr_fspec == [
@@ -148,6 +165,36 @@ using Test
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_BA_F04_0025.hdf",
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_CA_F04_0025.hdf",
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_DA_F04_0025.hdf"]
+        # ---------------------------------------------------------- make_misrhr_fname
+    include(JMTools_test * "src/make_misrhr_fname_tst_L1B316868050110AN.jl")
+    misrhr_fname = make_misrhr_fname_tst_L1B316868050110AN()
+    @test misrhr_fname[1] ==
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_V2.00-1.hdf"
+
+    include(JMTools_test * "src/make_misrhr_fname_tst_L1B316868050110.jl")
+    misrhr_fname = make_misrhr_fname_tst_L1B316868050110();
+    @test misrhr_fname == [
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DF_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CF_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BF_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AF_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AA_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.B110_MISRHR_V2.02-0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_V2.02-0.hdf"]
+
+    include(JMTools_test * "src/make_misrhr_fname_tst_BRF16868050110.jl")
+    misrhr_fname = make_misrhr_fname_tst_BRF16868050110();
+    @test misrhr_fname[1] == "MISR_HR_BRF_2012-10-03_P168_O068050_B110_V2.02-0.hdf"
+
+    include(JMTools_test * "src/make_misrhr_fname_tst_RPV16868050110.jl")
+    misrhr_fname = make_misrhr_fname_tst_RPV16868050110();
+    @test misrhr_fname[1] == "MISR_HR_RPV_2012-10-03_P168_O068050_B110_V2.02-0_SL.hdf"
+
+    include(JMTools_test * "src/make_misrhr_fname_tst_TIP16868050110.jl")
+    misrhr_fname = make_misrhr_fname_tst_TIP16868050110();
+    @test misrhr_fname[1] == "MISR_HR_TIP_2012-10-03_P168_O068050_B110_V2.02-0_GRN.hdf"
 # ---------------------------------------------------------- make_misrhr_fpath
     include(JMTools_test * "src/make_misrhr_fpath_tst_L1B3168110_1.jl")
     misrhr_fpath = make_misrhr_fpath_tst_L1B3168110_1();

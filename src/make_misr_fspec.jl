@@ -1,6 +1,8 @@
 """
     misr_fspec = make_misr_fspec(misr_prdct, misr_path;
-        misr_orbit = 0, misr_camera = "", misr_site = "", misr_version = "")
+        misr_orbit = misr_orbit, misr_camera = misr_camera,
+        misr_site = misr_site, misr_version = misr_version,
+        ext = ext, misr_fpath = misr_fpath)
 
 # Purpose(s):
 * Return the specification (path and name) of the MISR data product file(s) corresponding to the specified arguments.
@@ -14,6 +16,8 @@
 * `misr_camera::Union{AbstractString, Nothing} = nothing`: The MISR Camera name.
 * `misr_site::Union{AbstractString, Nothing} = nothing`: The MISR Local Mode site name.
 * `misr_version::Union{AbstractString, Nothing} = nothing`: The MISR product version identifier.
+* `ext::Union{AbstractString, Nothing} = nothing`: The file extension.
+* `misr_fpath::Union{AbstractString, Nothing} = nothing`: The output path to use instead of the default value.
 
 # Return value(s):
 * `misr_fspec::Vector{AbstractString}`: The specification(s) (path(s) and name(s)) of the MISR data file(s) correponding to the input arguments.
@@ -45,7 +49,11 @@
 julia> using JMTools
 
 julia> misr_fspec = make_misr_fspec("L1RTGM", 168;
-           misr_orbit = 68050, misr_camera = "AN", misr_site = "", misr_version = "")
+        misr_orbit = 68050, misr_camera = "AN", misr_site = "", misr_version = "")
+1-element Vector{AbstractString}:
+ "/Volumes/MISR_Data0/P168/L1RTGM" ⋯ 22 bytes ⋯ "GM_P168_O068050_AN_F03_0024.hdf"
+
+ julia> misr_fspec[1]
 "/Volumes/MISR_Data0/P168/L1RTGM/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.hdf"
 ```
 
@@ -54,7 +62,7 @@ julia> misr_fspec = make_misr_fspec("L1RTGM", 168;
 julia> using JMTools
 
 julia> misr_fspec = make_misr_fspec("L1RCCM", 168;
-    misr_orbit = 68050, misr_camera = "*")
+        misr_orbit = 68050, misr_camera = "*")
 9-element Vector{AbstractString}:
  "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_DF_F04_0025.hdf"
  "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_CF_F04_0025.hdf"
@@ -65,6 +73,9 @@ julia> misr_fspec = make_misr_fspec("L1RCCM", 168;
  "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_BA_F04_0025.hdf"
  "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_CA_F04_0025.hdf"
  "/Volumes/MISR_Data0/P168/L1RCCM" ⋯ 19 bytes ⋯ "GM_P168_O068050_DA_F04_0025.hdf"
+
+ julia> misr_fspec[4]
+"/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_AF_F04_0025.hdf"
 ```
 """
 function make_misr_fspec(
@@ -74,21 +85,31 @@ function make_misr_fspec(
     misr_camera::Union{AbstractString, Nothing} = nothing,
     misr_site::Union{AbstractString, Nothing} = nothing,
     misr_version::Union{AbstractString, Nothing} = nothing,
+    ext::Union{AbstractString, Nothing} = nothing,
+    misr_fpath::Union{AbstractString, Nothing} = nothing
     )::Vector{AbstractString}
 
-    # Set the name of the folder containing the data file(s):
-    misr_fpath = make_misr_fpath(misr_prdct, misr_path)
+    # If `misr_fpath` is explicitly provided, use that value; otherwise generate the default value:
+    if misr_fpath === nothing
+        misr_fpath = make_misr_fpath(misr_prdct, misr_path)
+    end
 
-    # Set the name(s) of the data file(s):
+    if misr_fpath[lastindex(misr_fpath)] != '/'
+        misr_fpath = misr_fpath * '/'
+    end
+
+    # Generate the name(s) of the data file(s):
     misr_fname = make_misr_fname(misr_prdct, misr_path;
-        misr_orbit, misr_camera, misr_site, misr_version)
+        misr_orbit = misr_orbit, misr_camera = misr_camera,
+        misr_site = misr_site, misr_version = misr_version, ext = ext)
 
     # Generate the file specification(s) of the desired data file(s):
     nfiles = length(misr_fname)
+    misr_fspec = Vector{AbstractString}(undef, nfiles)
+
     if nfiles == 1
-        misr_fspec = [misr_fpath * misr_fname[1]]
+        misr_fspec[1] = misr_fpath * misr_fname[1]
     else
-        misr_fspec = Vector{AbstractString}(undef, nfiles)
         for i = 1:nfiles
             misr_fspec[i] = misr_fpath * misr_fname[i]
         end

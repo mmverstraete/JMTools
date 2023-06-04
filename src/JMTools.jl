@@ -90,12 +90,14 @@ include(JMTools_src * "make_misr_fname.jl")
 export make_misr_fname
 include(JMTools_src * "make_misr_fpath.jl")
 export make_misr_fpath
-# include(JMTools_src * "make_misr_fspec.jl")
-# export make_misr_fspec
+include(JMTools_src * "make_misr_fspec.jl")
+export make_misr_fspec
 include(JMTools_src * "make_misrhr_fname.jl")
 export make_misrhr_fname
 include(JMTools_src * "make_misrhr_fpath.jl")
 export make_misrhr_fpath
+include(JMTools_src * "make_misrhr_fspec.jl")
+export make_misrhr_fspec
 include(JMTools_src * "make_post_fname.jl")
 export make_post_fname
 include(JMTools_src * "make_post_fpath.jl")
@@ -114,8 +116,6 @@ include(JMTools_src * "set_misr_specs.jl")
 export set_misr_specs
 include(JMTools_src * "set_mroots.jl")
 export set_mroots
-include(JMTools_src * "set_current_prdct_version.jl")
-export set_current_prdct_version
 include(JMTools_src * "sp_fspec.jl")
 export sp_fspec
 include(JMTools_src * "split_location.jl")

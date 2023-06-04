@@ -203,24 +203,16 @@ function make_misr_fname(
     end
 
     # All MISR files include a Version identifier:
-    if misr_version === nothing
-        misr_version = set_current_prdct_version(misr_prdct)
-    elseif misr_version === ""
+    if (misr_version === nothing) | (misr_version === "")
         misr_version = set_current_prdct_version(misr_prdct)
     end
 
     # All MISR files include a file extension:
-    if ext === nothing
+    if (ext === nothing) | (ext === "")
         if (misr_prdct != "L2AERO") & (misr_prdct != "L2LAND")
             ext = ".hdf"
         else
             ext = ".nc"
-        end
-    elseif ext === ""
-            error("make_misr_fname: File extension cannot be an empty string.")
-    else
-        if ext[1] != '.'
-            error("make_misr_fname: File extension must start with a dot.")
         end
     end
 

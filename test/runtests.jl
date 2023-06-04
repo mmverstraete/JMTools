@@ -44,8 +44,12 @@ using Test
     include(JMTools_test * "src/is_from_misr_path_tst_2.jl")
     bool = is_from_misr_path_tst_2();
     @test bool == false
+# ---------------------------------------------------------- is_valid_misr_band
+    include(JMTools_test * "src/is_valid_misr_band_tst_1.jl")
+    bool = is_valid_misr_band_tst_1();
+    @test bool == true
 # ---------------------------------------------------------- is_valid_misr_block
-    include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
+include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     bool, misr_block_string = is_valid_misr_block_tst_005();
     @test bool == true
     @test misr_block_string == "B005"

@@ -114,7 +114,12 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     include(JMTools_test * "src/is_valid_misrhr_prdct_tst_1.jl")
     bool, prdct_full_name = is_valid_misrhr_prdct_tst_1();
     @test bool == true
-    @test prdct_full_name == "Terrain Projected Radiance Global Mode Product at Native Spatial Resolution"
+    @test prdct_full_name == "Radiometric Camera-by-Camera Cloud Mask, Missing Values Replaced"
+
+    include(JMTools_test * "src/is_valid_misrhr_prdct_tst_6.jl")
+    bool, prdct_full_name = is_valid_misrhr_prdct_tst_6();
+    @test bool == true
+    @test prdct_full_name == "Two-stream Inversion Package"
 # ---------------------------------------------------------- make_location
     include(JMTools_test * "src/make_location_tst_1.jl")
     location = make_location_tst_1();
@@ -190,27 +195,27 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     include(JMTools_test * "src/make_misrhr_fname_tst_L1B316868050110.jl")
     misrhr_fname = make_misrhr_fname_tst_L1B316868050110();
     @test misrhr_fname == [
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DF_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CF_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BF_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AF_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AA_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.B110_MISRHR_V2.02-0.hdf"
-        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_V2.02-0.hdf"]
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DF_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CF_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BF_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AF_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AA_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.B110_MISRHR_v3.0.0.hdf"
+        "MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_v3.0.0.hdf"]
 
     include(JMTools_test * "src/make_misrhr_fname_tst_BRF16868050110.jl")
     misrhr_fname = make_misrhr_fname_tst_BRF16868050110();
-    @test misrhr_fname[1] == "MISR_HR_BRF_2012-10-03_P168_O068050_B110_V2.02-0.hdf"
+    @test misrhr_fname[1] == "MISR_HR_BRF_2012-10-03_P168_O068050_B110_v3.0.0.hdf"
 
     include(JMTools_test * "src/make_misrhr_fname_tst_RPV16868050110.jl")
     misrhr_fname = make_misrhr_fname_tst_RPV16868050110();
-    @test misrhr_fname[1] == "MISR_HR_RPV_2012-10-03_P168_O068050_B110_V2.02-0_SL.hdf"
+    @test misrhr_fname[1] == "MISR_HR_RPV_2012-10-03_P168_O068050_B110_v3.0.0_SL.hdf"
 
     include(JMTools_test * "src/make_misrhr_fname_tst_TIP16868050110.jl")
     misrhr_fname = make_misrhr_fname_tst_TIP16868050110();
-    @test misrhr_fname[1] == "MISR_HR_TIP_2012-10-03_P168_O068050_B110_V2.02-0_GRN.hdf"
+    @test misrhr_fname[1] == "MISR_HR_TIP_2012-10-03_P168_O068050_B110_v3.0.0_GRN.hdf"
 # ---------------------------------------------------------- make_misrhr_fpath
     include(JMTools_test * "src/make_misrhr_fpath_tst_L1B3168110_1.jl")
     misrhr_fpath = make_misrhr_fpath_tst_L1B3168110_1();
@@ -222,20 +227,20 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
 # ---------------------------------------------------------- make_misrhr_fspec
     include(JMTools_test * "src/make_misrhr_fspec_tst_BRF16868050110.jl")
     misrhr_fspec = make_misrhr_fspec_tst_BRF16868050110();
-    @test misrhr_fspec == ["/Volumes/MISR-HR/P168/B110/BRF/brf/MISR_HR_BRF_2012-10-03_P168_O068050_B110_V2.02-0.hdf"]
+    @test misrhr_fspec == ["/Volumes/MISR-HR/P168/B110/BRF/brf/MISR_HR_BRF_2012-10-03_P168_O068050_B110_v3.0.0.hdf"]
 
     include(JMTools_test * "src/make_misrhr_fspec_tst_L1B316868050110.jl")
     misrhr_fspec = make_misrhr_fspec_tst_L1B316868050110();
     @test misrhr_fspec == [
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DF_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CF_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BF_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AF_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AA_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.B110_MISRHR_V2.02-0.hdf",
-        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_V2.02-0.hdf"]
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DF_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CF_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BF_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AF_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AA_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.B110_MISRHR_v3.0.0.hdf",
+        "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_v3.0.0.hdf"]
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();

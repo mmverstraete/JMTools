@@ -27,8 +27,8 @@
 
 # Note(s):
 * The version labels provided below need to be updated
-- when new MISR products are generated at NASA ASDC,
-- when new MISR-HR codes are generated, or
+- when new MISR products are generated or existing products are updated at NASA ASDC,
+- when new MISR-HR products are generated or existing products are updated, or
 - when new versions of the post-processing functions are generated.
 
 # Example 1:
@@ -44,7 +44,7 @@ julia> prdct_version = set_current_prdct_version("L1RTGM")
 julia> using JMTools
 
 julia> prdct_version = set_current_prdct_version("RPV")
-"V2.00-1"
+"v3.0.0"
 ```
 
 # Example 3:
@@ -88,18 +88,18 @@ function set_current_prdct_version(
     elseif prdct == "L2LAND"
         prdct_version = "F08_0023"
 
-    elseif prdct == "L1RTGMMR"
-        prdct_version = "v0.1.0"
-    elseif prdct == "L1RCCMMR"
-        prdct_version = "v0.1.0"
+    elseif prdct == "L1RTGMMVR"
+        prdct_version = "v3.0.0"
+    elseif prdct == "L1RCCMMVR"
+        prdct_version = "v3.0.0"
     elseif prdct == "L1B3"
-        prdct_version = "V2.00-1"
+        prdct_version = "v3.0.0"
     elseif prdct == "BRF"
-        prdct_version = "V2.00-1"
+        prdct_version = "v3.0.0"
     elseif prdct == "RPV"
-        prdct_version = "V2.00-1"
+        prdct_version = "v3.0.0"
     elseif prdct == "TIP"
-        prdct_version = "V2.00-1"
+        prdct_version = "v3.0.0"
 
     else
         error("set_current_prdct_version: prdct = " * string(prdct) *

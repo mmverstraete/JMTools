@@ -50,11 +50,11 @@
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s):
-* Refer to the User Manual for a detailed discussion of the three filesystems of the MISR and MISR-HR processing system.
-* The environment variables defined by this function are used to set the recommended root directories of these three filesystems, specifically by the functions `mk_misr_fpath`, `mk_misrhr_fpath`, and `mk_post_fpath`.
+* Refer to the User Manual for a detailed discussion of the three filesystems of the MISR-HR processing system: one for the MISR data files, one for the MISR-HR product files, and one for the post-processing files.
+* The environment variables defined by this function are used to set the recommended root directories of these three filesystems, used specifically by the functions `make_misr_fspec`, `make_misrhr_fspec`, and `make_post_fspec`.
 * This function only ensures that these environment variables are properly set and ready for use: it does not verify that the indicated directories are actually accessible or contain the desired files.
 * The validity and scope of these environment variables are limited to the current Julia session. To make those settings permanent, set and export these environment variables in the shell configuration file (e.g., `.zshenv`).
-* AGP files are normally available from the appropriate subdirectory of `MROOT_MISR`. However, since those files are static throughout the mission, a copy of those files may be installed under `MROOT_AGP` for convenient access. Set this environment variable to a null string to disable this feature.
+* AGP files are normally available from the appropriate subdirectory of `MROOT_MISR`. However, since those files are static throughout the mission, a copy of those files may also be installed under `MROOT_AGP` for convenient access. Set this environment variable to a null string to disable this feature.
 * The environment variable `MROOT_SCRAP` points to a local directory, meant for temporary storage or for testing purposes. Set this environment variable to a null string to disable this feature.
 * In an operational context, files can be stored in multiple external disks: this function can be called repeatedly with different keyword values to adjust these root directories as required. 
 

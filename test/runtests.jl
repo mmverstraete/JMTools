@@ -120,6 +120,11 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     bool, prdct_full_name = is_valid_misrhr_prdct_tst_6();
     @test bool == true
     @test prdct_full_name == "Two-stream Inversion Package"
+# ---------------------------------------------------------- is_valid_misrhr_subprdct
+    include(JMTools_test * "src/is_valid_misrhr_subprdct_tst_L1RCCMMVRcldm.jl")
+    bool, subprdct_name = is_valid_misrhr_subprdct_tst_L1RCCMMVRcldm();
+    @test bool == true
+    @test subprdct_name == "Cloud Mask"
 # ---------------------------------------------------------- make_location
     include(JMTools_test * "src/make_location_tst_1.jl")
     location = make_location_tst_1();

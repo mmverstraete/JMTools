@@ -1,19 +1,23 @@
 """
     bool, prdct_full_name = is_valid_misrhr_prdct(misrhr_prdct)
 
-# Purpose:
-Determine whether the specified `misrhr_prdct` is a valid MISR-HR product acronym.
+# Purpose(s):
+* Determine whether the specified `misrhr_prdct` is a valid MISR-HR product acronym.
 
-# Required positional argument(s):
+# Positional argument(s):
 * `misrhr_prdct::AbstractString`: The MISR-HR product acronym.
 
-# Optional keyword(s): None.
+# Keyword argument(s): None.
 
-# Returned value(s):
+# Return value(s):
 * `bool::Bool`: Whether `misrhr_prdct` is valid or not.
+* `prdct_full_name::AbstractString`: The full name of the MISR-HR product.
 
 # Algorithm:
 * This function verifies that the positional argument `misrhr_prdct` is a valid MISR-HR product acronym and returns the full product name.
+
+# Reference(s):
+* The MISR-HR Processing System Manual.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -25,17 +29,27 @@ Determine whether the specified `misrhr_prdct` is a valid MISR-HR product acrony
 * Mtk C Library: Version 1.5.
 * Julia function: Version 0.1.0 (2023-05-15).
 
-# Note(s):
-* This function does not return a `prdct_name` label (as is done with `is_valid_misr_prdct`) because
-- MISR-HR L1B3 products share the same filenames as the original L1B2 product filenames from which they are derived, and append the label `_MISRHR_[Version]` at its end, before the file extension.
-- The other MISR-HR product filenames start with the label `MISR_HR_` followed by the product acronym (`BRF`, `RPV`, or `TIP`).
+# Note(s): None.
 
-# Example(s):
+# Example 1:
+```julia
+julia> using JMTools
+
+julia> bool, prdct_full_name = is_valid_misrhr_prdct("L1RCCMMVR")
+(true, "Radiometric Camera-by-Camera Cloud Mask, Missing Values Replaced")
+```
+
+# Example 2:
 ```julia
 julia> using JMTools
 
 julia> bool, prdct_full_name = is_valid_misrhr_prdct("TIP")
 (true, "Two-stream Inversion Package")
+```
+
+# Example 3:
+```julia
+julia> using JMTools
 
 julia> bool, prdct_full_name = is_valid_misrhr_prdct("l1B3")
 (false, "")
@@ -45,9 +59,17 @@ function is_valid_misrhr_prdct(
     misrhr_prdct::AbstractString
     )::Tuple{Bool, AbstractString}
 
-    if misrhr_prdct == "L1B3"
+    if misrhr_prdct == "L1RCCMMVR"
         bool = true
-        prdct_full_name = "Terrain Projected Radiance Global Mode Product at Native Resolution"
+        prdct_full_name = "Radiometric Camera-by-Camera Cloud Mask, Missing Values Replaced"
+
+    elseif misrhr_prdct == "L1RTGMMVR"
+        bool = true
+        prdct_full_name = "Terrain Projected Radiance Global Mode Product, Missing Values Replaced"
+
+    elseif misrhr_prdct == "L1B3"
+        bool = true
+        prdct_full_name = "Terrain Projected Radiance Global Mode Product at Native Spatial Resolution"
 
     elseif misrhr_prdct == "BRF"
         bool = true

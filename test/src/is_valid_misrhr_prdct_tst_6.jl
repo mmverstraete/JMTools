@@ -1,8 +1,8 @@
 """
-    bool = is_valid_misrhr_prdct_tst_1()
+    bool = is_valid_misrhr_prdct_tst_6()
 
 # Purpose(s):
-* Generate the output of `is_valid_misrhr_prdct.jl` for testing purposes. Test 1: For the MISR-HR L1RCCMMVR product.
+* Generate the output of `is_valid_misrhr_prdct.jl` for testing purposes. Test 6: For the MISR-HR TIP product.
 
 # Positional argument(s): None.
 
@@ -28,21 +28,21 @@ julia> using JMTools
 
 julia> using Test
 
-julia> include(JMTools_test * "src/is_valid_misrhr_prdct_tst_1.jl")
-is_valid_misrhr_prdct_tst_1
+julia> include(JMTools_test * "src/is_valid_misrhr_prdct_tst_6.jl")
+is_valid_misrhr_prdct_tst_6
 
-julia> bool, prdct_full_name = is_valid_misrhr_prdct_tst_1();
+julia> bool, prdct_full_name = is_valid_misrhr_prdct_tst_6();
 
 julia> @test bool == true
 Test Passed
 
-julia> @test prdct_full_name == "Radiometric Camera-by-Camera Cloud Mask, Missing Values Replaced"
+julia> @test prdct_full_name == "Two-stream Inversion Package"
 Test Passed
 ```
 """
-function is_valid_misrhr_prdct_tst_1()
+function is_valid_misrhr_prdct_tst_6()
 
-    misrhr_prdct = "L1RCCMMVR"
+    misrhr_prdct = "TIP"
     bool, prdct_full_name = is_valid_misrhr_prdct(misrhr_prdct)
 
     return bool, prdct_full_name

@@ -254,8 +254,16 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     include(JMTools_test * "src/set_current_prdct_version_tst_1000.jl")
     prdct_version = set_current_prdct_version_tst_1000();
     @test prdct_version == "F03_0013"
+# ---------------------------------------------------------- set_misr_resol
+    include(JMTools_test * "src/set_misr_resol_tst_AGP.jl")
+    misr_resolution = set_misr_resol_tst_AGP();
+    @test misr_resolution == 1100
+
+    include(JMTools_test * "src/set_misr_resol_tst_L1RTGMMVRBARed.jl")
+    misr_resolution = set_misr_resol_tst_L1RTGMMVRBARed();
+    @test misr_resolution == 275
 # ---------------------------------------------------------- set_misr_specs
-    include(JMTools_test * "src/set_misr_specs_tst_1.jl")
+include(JMTools_test * "src/set_misr_specs_tst_1.jl")
     misr_specs = set_misr_specs_tst_1();
     @test misr_specs.nmodes == 2
     @test misr_specs.mode_names == ["GM", "LM"]

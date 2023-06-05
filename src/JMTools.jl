@@ -78,10 +78,6 @@ include(JMTools_src * "is_valid_misrhr_prdct.jl")
 export is_valid_misrhr_prdct
 include(JMTools_src * "is_valid_misrhr_subprdct.jl")
 export is_valid_misrhr_subprdct
-include(JMTools_src * "is_valid_post_prdct.jl")
-export is_valid_post_prdct
-include(JMTools_src * "is_valid_post_subprdct.jl")
-export is_valid_post_subprdct
 include(JMTools_src * "lr2hr.jl")
 export lr2hr
 include(JMTools_src * "make_location.jl")

@@ -1,5 +1,5 @@
 """
-    location = make_location(;
+    loc = make_location(;
         misr_path1 = misr_path1, misr_path2 = misr_path2,
         misr_orbit1 = misr_orbit1, misr_orbit2 = misr_orbit2,
         misr_block1 = misr_block1, misr_block2 = misr_block2,
@@ -20,14 +20,36 @@
 * `misr_site::Union{AbstractString, Nothing} = nothing`: The MISR Local Mode Site name.
 
 # Return value(s):
-* `location::AbstractString`: A `string` describing the geographical area covered by a MISR or MISR-HR deliverable product.
+* `loc::NamedTuple{(
+    :misr_path1, :misr_path1_string,
+    :misr_path2, :misr_path2_string,
+    :misr_orbit1, :misr_orbit1_string,
+    :misr_orbit2, :misr_orbit2_string,
+    :misr_block1, :misr_block1_string,
+    :misr_block2, :misr_block2_string,
+    :misr_site, :misr_site_label,
+    :location),
+    Tuple{Integer, AbstractString,
+        Integer, AbstractString,
+        Integer, AbstractString,
+        Integer, AbstractString,
+        Integer, AbstractString,
+        Integer, AbstractString,
+        AbstractString, AbstractString,
+        AbstractString}}`:
+    Variables describing the geographical area covered by a MISR or MISR-HR deliverable product.
 
 # Algorithm:
-* This function assembles the string
+* This function generates the output NamedTuple `loc` containing the following information:
+- the specified or default numerical values of the keyword arguments `misr_path1`, `misr_path2`, `misr_orbit1`, `misr_orbit2`, `misr_block1`, `misr_block2`;
+- the corresponding string expressions of those 6 keywords;
+- the specified or default string value of the keyword argument `misr_site`;
+- the corresponding string expression `misr_site_label`; and
+- the assembled string `location` concatenating these elements with the following syntax:
 
 `location = [P1[-P2]][+O1[-O2]][+B1[-B2]][+S] | [NOLOC]`
 
-by concatenating the keyword arguments effectively provided in this specific order, subject to the following syntax rules and constraints:
+subject to the following rules and constraints:
 
 - `P1 = "P" * misr_path1`, if `misr_path1` is provided.
 - `P2 = "P" * misr_path2`, if `misr_path1` and `misr_path2` are both provided.
@@ -62,15 +84,17 @@ where
 ```julia
 julia> using JMTools
 
-julia> location = make_location()
-"NOLOC"
+julia> loc = make_location()
+NamedTuple{(:misr_path1, :misr_path1_string, :misr_path2, :misr_path2_string, :misr_orbit1, :misr_orbit1_string, :misr_orbit2, :misr_orbit2_string, :misr_block1, :misr_block1_string, :misr_block2, :misr_block2_string, :misr_site, :misr_site_label, :location), Tuple{Integer, AbstractString, Integer, AbstractString, Integer, AbstractString, Integer, AbstractString, Integer, AbstractString, Integer, AbstractString, AbstractString, AbstractString, AbstractString}}((0, "", 0, "", 0, "", 0, "", 0, "", 0, "", "", "", "NOLOC"))
 ```
 
 # Example 2:
 ```julia
 julia> using JMTools
 
-julia> location = make_location(; misr_path1 = 168)
+julia> loc = make_location(; misr_path1 = 168);
+
+julia> loc.location
 "P168"
 ```
 
@@ -78,7 +102,9 @@ julia> location = make_location(; misr_path1 = 168)
 ```julia
 julia> using JMTools
 
-julia> location = make_location(; misr_path1 = 168, misr_orbit1 = 68050, misr_block1 = 110)
+julia> loc = make_location(; misr_path1 = 168, misr_orbit1 = 68050, misr_block1 = 110);
+
+julia> loc.location
 "P168+O068050+B110"
 ```
 
@@ -86,9 +112,11 @@ julia> location = make_location(; misr_path1 = 168, misr_orbit1 = 68050, misr_bl
 ```julia
 julia> using JMTools
 
-julia> location = make_location(; misr_path1 = 168, misr_path2 = 170,
+julia> loc = make_location(; misr_path1 = 168, misr_path2 = 170,
            misr_orbit1 = 68050, misr_orbit2 = 72000,
-           misr_site = "skukuza")
+           misr_site = "skukuza");
+
+julia> loc.location
 "P168-P170+O068050-O072000+SITE_SKUKUZA"
 ```
 """
@@ -100,12 +128,28 @@ function make_location(;
     misr_block1::Union{Integer, Nothing} = nothing,
     misr_block2::Union{Integer, Nothing} = nothing,
     misr_site::Union{AbstractString, Nothing} = nothing
-    )::AbstractString
+    )::NamedTuple{(
+        :misr_path1, :misr_path1_string,
+        :misr_path2, :misr_path2_string,
+        :misr_orbit1, :misr_orbit1_string,
+        :misr_orbit2, :misr_orbit2_string,
+        :misr_block1, :misr_block1_string,
+        :misr_block2, :misr_block2_string,
+        :misr_site, :misr_site_label,
+        :location),
+        Tuple{Integer, AbstractString,
+            Integer, AbstractString,
+            Integer, AbstractString,
+            Integer, AbstractString,
+            Integer, AbstractString,
+            Integer, AbstractString,
+            AbstractString, AbstractString,
+            AbstractString}}
 
     # Initialize the output variable location:
     location = ""
 
-    # Assemble the location string:
+    # Assemble the location string and set the output Tuple elements:
     if misr_path1 !== nothing
         bool, misr_path1_string = is_valid_misr_path(misr_path1)
         if bool != true
@@ -118,7 +162,15 @@ function make_location(;
                 error("make_location: Argument misr_path2 is invalid.")
             end
             location = location * '-' * misr_path2_string
+        else
+            misr_path2 = 0
+            misr_path2_string = ""
         end
+    else
+        misr_path1 = 0
+        misr_path1_string = ""
+        misr_path2 = 0
+        misr_path2_string = ""
     end
 
     if misr_orbit1 !== nothing
@@ -133,7 +185,15 @@ function make_location(;
                 error("make_location: Argument misr_orbit2 is invalid.")
             end
             location = location * '-' * misr_orbit2_string
+        else
+            misr_orbit2 = 0
+            misr_orbit2_string = ""
         end
+    else
+        misr_orbit1 = 0
+        misr_orbit1_string = ""
+        misr_orbit2 = 0
+        misr_orbit2_string = ""
     end
     
     if misr_block1 !== nothing
@@ -148,7 +208,15 @@ function make_location(;
                 error("make_location: Argument misr_block2 is invalid.")
             end
             location = location * '-' * misr_block2_string
+        else
+            misr_block2 = 0
+            misr_block2_string = ""
         end
+    else
+        misr_block1 = 0
+        misr_block1_string = ""
+        misr_block2 = 0
+        misr_block2_string = ""
     end
     
     if misr_site !== nothing
@@ -158,13 +226,33 @@ function make_location(;
             error("make_location: Argument misr_site is invalid.")
         end
         location = location * '+' * misr_site_label
+    else
+        misr_site = ""
+        misr_site_label = ""
     end
 
-    # If location is still not assigned a value:
     if location == ""
-        return "NOLOC"
-    else
-        return location
+        location = "NOLOC"
     end
+
+    # Set the output value:
+    loc = (
+        misr_path1 = misr_path1,
+        misr_path1_string = misr_path1_string,
+        misr_path2 = misr_path2,
+        misr_path2_string = misr_path2_string,
+        misr_orbit1 = misr_orbit1,
+        misr_orbit1_string = misr_orbit1_string,
+        misr_orbit2 = misr_orbit2,
+        misr_orbit2_string = misr_orbit2_string,
+        misr_block1 = misr_block1,
+        misr_block1_string = misr_block1_string,
+        misr_block2 = misr_block2,
+        misr_block2_string = misr_block2_string,
+        misr_site = misr_site,
+        misr_site_label = misr_site_label,
+        location = location)
+
+    return loc
 
 end

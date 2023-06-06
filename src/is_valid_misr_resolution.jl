@@ -132,7 +132,7 @@ function is_valid_misr_resolution(
             misr_resolution_string = ""
         end
 
-    elseif (misr_prdct === "L1RCCM") | (misr_prdct === "L1RCCMMR")
+    elseif (misr_prdct === "L1RCCM") | (misr_prdct === "L1RCCMMVR")
         if misr_resolution == 1100
             bool = true
             misr_resolution_string = "R" * string(misr_resolution)

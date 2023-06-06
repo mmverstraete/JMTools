@@ -47,7 +47,6 @@
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s):
-
 * This function assumes that MISR-HR product file(s) are organized as described in the MISR-HR Processing System User Manual.
 * This function verifies the validity of all arguments except `misr_version` and `misrhr_version`.
 * This function does not verify that the path name `misrhr_fpath` component of the output value `misrhr_fspec` exists.

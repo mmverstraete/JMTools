@@ -195,7 +195,7 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_BA_F04_0025.hdf",
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_CA_F04_0025.hdf",
         "/Volumes/MISR_Data0/P168/L1RCCM/MISR_AM1_GRP_RCCM_GM_P168_O068050_DA_F04_0025.hdf"]
-        # ---------------------------------------------------------- make_misrhr_fname
+# ---------------------------------------------------------- make_misrhr_fname
     include(JMTools_test * "src/make_misrhr_fname_tst_L1B316868050110AN.jl")
     misrhr_fname = make_misrhr_fname_tst_L1B316868050110AN()
     @test misrhr_fname[1] ==
@@ -250,6 +250,22 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
         "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_BA_F03_0024.B110_MISRHR_v3.0.0.hdf",
         "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_CA_F03_0024.B110_MISRHR_v3.0.0.hdf",
         "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_v3.0.0.hdf"]
+# ---------------------------------------------------------- make_post_fname
+    include(JMTools_test * "src/make_post_fname_tst_DataL1RCCMMVRcldm.jl")
+    post_fname = make_post_fname_tst_DataL1RCCMMVRcldm();
+    @test post_fname == "Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
+
+    include(JMTools_test * "src/make_post_fname_tst_StatsTIPfapar.jl")
+    post_fname = make_post_fname_tst_StatsTIPfapar();
+    @test post_fname == "Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
+# ---------------------------------------------------------- make_post_fpath
+    include(JMTools_test * "src/make_post_fpath_tst_NoArgs.jl")
+    post_fpath = make_post_fpath_tst_NoArgs();
+    @test post_fpath == "~/U=Dev/P=Test/NOLOC/make_post_fpath/all_prdcts/all_ftypes/"
+
+    include(JMTools_test * "src/make_post_fpath_tst_L1RCCMMVRMap.jl")
+    post_fpath = make_post_fpath_tst_L1RCCMMVRMap();
+    @test post_fpath == "/Users/michel/Projects/MISR/Scrap/U=John/P=Test/P168-P170+O068000-O072000+B110-B112+SITE_SKUKUZA/make_post_fpath/L1RCCMMVR/Map/"
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();

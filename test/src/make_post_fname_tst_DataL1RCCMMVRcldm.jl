@@ -40,9 +40,12 @@ Test Passed
 function make_post_fname_tst_DataL1RCCMMVRcldm(
     )::AbstractString
 
+    loc = make_location(;
+        misr_path1 = 168,
+        misr_orbit1 = 68050,
+        misr_block1 = 110)
     post_fname = make_post_fname("Data", "L1RCCMMVR", "cldm", "";
-        misr_path1 = 168, misr_orbit1 = 68050, misr_block1 = 110,
-        resolution = 1100, ext = ".nc")
+        loc = loc, resolution = 1100, ext = ".nc")
 
     return post_fname
 

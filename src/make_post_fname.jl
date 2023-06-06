@@ -1,9 +1,6 @@
 """
     post_fname = make_post_fname(ftype, prdct, subprdct, qualifier;
-        misr_path1 = misr_path1, misr_path2 = misr_path2,
-        misr_orbit1 = misr_orbit1, misr_orbit2 = misr_orbit2,
-        misr_block1 = misr_block1, misr_block2 = misr_block2,
-        misr_site = misr_site, resolution = resolution,
+        loc = loc, resolution = resolution,
         from_date = from_date, until_date = until_date,
         misr_version = misr_version, misrhr_version = misrhr_version,
         post_version = post_version, ext = ext)
@@ -18,13 +15,7 @@ Return the name of the post-processing file corresponding to the arguments.
 * `qualifier::AbstractString`: An optional qualifier of the product or of the processing applied.
 
 # Keyword argument(s):
-* `misr_path1::Union{Integer, Nothing} = nothing`: The first (or only) MISR Path number.
-* `misr_path2::Union{Integer, Nothing} = nothing`: The last MISR Path number.
-* `misr_orbit1::Union{Integer, Nothing} = nothing`: The first (or only) MISR Orbit number.
-* `misr_orbit2::Union{Integer, Nothing} = nothing`: The last MISR Orbit number.
-* `misr_block1::Union{Integer, Nothing} = nothing`: The first (or only) MISR Block number.
-* `misr_block2::Union{Integer, Nothing} = nothing`: The last MISR Block number.
-* `misr_site::Union{AbstractString, Nothing} = nothing`: The MISR Local Mode Site name.
+* `loc::Union{NamedTuple, Nothing} = nothing`: The geographical area of interest, as set by function `make_location.jl`.
 * `resolution::Union{Integer, Nothing} = nothing`: The product spatial resolution.
 * `from_date::Union{Dates.TimeType, Nothing} = nothing`: The date of acquisition of MISR data used to generate the output, or the date of the start of the period of interest.
 * `until_date::Union{Dates.TimeType, Nothing} = nothing`: The date of the end of the period of interest.
@@ -64,21 +55,35 @@ This function generates a filename based on the information provided by the posi
 ```julia
 julia> using JMTools
 
+julia> loc = make_location(;
+        misr_path1 = 168, 
+        misr_orbit1 = 68050, 
+        misr_block1 = 110);
+
+julia> loc.location
+"P168+O068050+B110"
+
 julia> post_fname = make_post_fname("Data", "L1RCCMMVR", "cldm", "";
-           misr_path1 = 168, misr_orbit1 = 68050, misr_block1 = 110,
-           resolution = 1100, ext = ".nc")
-"Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+2023-06-05_v3.0.0.nc"
+        loc = loc, resolution = 1100, ext = ".nc")
+"Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
 ```
 
 # Example 2:
 ```
 julia> using JMTools
 
+julia> loc = make_location(;
+        misr_path1 = 168, 
+        misr_orbit1 = 60000, misr_orbit2 = 70000,
+        misr_block1 = 110, misr_block2 = 115,
+        misr_site = "skukuza");
+
+julia> loc.location
+"P168+O060000-O070000+B110-B115+SITE_SKUKUZA"
+
 julia> post_fname = make_post_fname("Stats", "TIP", "fapar", "";
-           misr_path1 = 168, misr_orbit1 = 60000, misr_orbit2 = 70000,
-           misr_block1 = 110, misr_block2 = 115, misr_site = "skukuza",
-           resolution = 275, ext = ".nc")
-"Stats_TIP_fapar_P168+O060000-O070000+B110-B115+SITE_SKUKUZA_R275_2011-03-30+2011-03-30+2023-06-05_v3.0.0.nc"
+               loc = loc, resolution = 275, ext = ".nc")
+"Stats_TIP_fapar_P168+O060000-O070000+B110-B115+SITE_SKUKUZA_R275_2011-03-30+2013-02-14+2023-06-06_v3.0.0.nc"
 ```
 """
 function make_post_fname(
@@ -86,13 +91,7 @@ function make_post_fname(
     prdct::AbstractString,
     subprdct::AbstractString, 
     qualifier::AbstractString;
-    misr_path1::Union{Integer, Nothing} = nothing,
-    misr_path2::Union{Integer, Nothing} = nothing,
-    misr_orbit1::Union{Integer, Nothing} = nothing,
-    misr_orbit2::Union{Integer, Nothing} = nothing,
-    misr_block1::Union{Integer, Nothing} = nothing,
-    misr_block2::Union{Integer, Nothing} = nothing,
-    misr_site::Union{AbstractString, Nothing} = nothing,
+    loc::Union{NamedTuple, Nothing} = nothing,
     resolution::Union{Integer, Nothing} = nothing,
     from_date::Union{Dates.TimeType, Nothing} = nothing,
     until_date::Union{Dates.TimeType, Nothing} = nothing,
@@ -152,12 +151,7 @@ function make_post_fname(
     end
 
     # Add the location information:
-    location = make_location(;
-        misr_path1 = misr_path1, misr_path2 = misr_path2,
-        misr_orbit1 = misr_orbit1, misr_orbit2 = misr_orbit2,
-        misr_block1 = misr_block1, misr_block2 = misr_block2,
-        misr_site = misr_site)
-    post_fname = post_fname * '_' * location
+    post_fname = post_fname * '_' * loc.location
 
     # Format the spatial resolution and add it to the filename:
     if resolution !== nothing
@@ -176,16 +170,16 @@ function make_post_fname(
         else
             post_fname = post_fname * '+' * dt3
         end
-    elseif misr_orbit1 !== nothing
-        bool, misr_orbit_string = is_valid_misr_orbit(misr_orbit1)
+    elseif loc.misr_orbit1 !== nothing
+        bool, misr_orbit_string = is_valid_misr_orbit(loc.misr_orbit1)
         if bool
-            orbit_date, orbit_date_string = orbit2date(misr_orbit1; fmt = "")
+            orbit_date, orbit_date_string = orbit2date(loc.misr_orbit1; fmt = "")
             post_fname = post_fname * '_' * orbit_date_string
         end
-        if misr_orbit2 !== nothing
-            bool, misr_orbit_string = is_valid_misr_orbit(misr_orbit2)
+        if loc.misr_orbit2 !== nothing
+            bool, misr_orbit_string = is_valid_misr_orbit(loc.misr_orbit2)
             if bool
-                orbit_date, orbit_date_string = orbit2date(misr_orbit1; fmt = "")
+                orbit_date, orbit_date_string = orbit2date(loc.misr_orbit2; fmt = "")
                 post_fname = post_fname * '+' * orbit_date_string * '+' * dt3
             else
                 post_fname = post_fname * '+'  * dt3

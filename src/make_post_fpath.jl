@@ -1,22 +1,22 @@
 """
     post_fpath = make_post_fpath(; user = user, project = project,
-        location = location, call_f = call_f, prdct = prdct, ftype = ftype)
+        loc = loc, call_f = call_f, prdct = prdct, ftype = ftype)
 
 # Purpose(s):
-* Generate the full name `post_fpath` of the directory containing the post-processing file(s) for the specified `user` and `project`, for the geographical area `location`, in response to a request from function `call_f`, for the main product `prdct`, and for a file of type `ftype`.
+* Generate the full name `post_fpath` of the directory containing the post-processing file(s) for the specified `user` and `project`, for the geographical area `loc`, in response to a request from function `call_f`, for the main product `prdct`, and for a file of type `ftype`.
 
 # Positional argument(s): None.
 
 # Keyword argument(s):
 * `user::Union{AbstractString, Nothing} = nothing`: The user name.
 * `project::Union{AbstractString, Nothing} = nothing`: The project name.
-* `location::Union{AbstractString, Nothing} = nothing`: The geographical area of interest, as set by function `make_location.jl`.
+* `loc::Union{NamedTuple, Nothing} = nothing`: The geographical area of interest, as set by function `make_location.jl`.
 * `call_f::Union{AbstractString, Nothing} = nothing`: The name of the highest-level function requesting the use or creation of this directory.
 * `prdct::Union{AbstractString, Nothing} = nothing`: The name of the main product involved.
 * `ftype::Union{AbstractString, Nothing} = nothing`: The file type involved.
 
 # Return value(s):
-* `post_fpath::AbstractString`: The full name of the directory containing the post-processing file(s) for the specified user, project, location, calling function, product and file type.
+* `post_fpath::AbstractString`: The full name of the directory containing the post-processing file(s) for the specified user, project, loc, calling function, product and file type.
 
 # Algorithm:
 * This function initializes the output value `post_fpath` with the root directory `MROOT_SCRAP`, if it is defined, and with the root directory `MROOT_POST` otherwise; it then appends a relative directory name based on the keyword arguments provided.
@@ -41,7 +41,7 @@
 ```julia
 julia> using JMTools
 
-julia> set_mroots("Unset")
+julia> set_mroots("Unset");
 
 julia> post_fpath = make_post_fpath()
 "~/U=Dev/P=Test/NOLOC/make_post_fpath/all_prdcts/all_ftypes/"
@@ -51,38 +51,40 @@ julia> post_fpath = make_post_fpath()
 ```
 julia> using JMTools
 
-julia> set_mroots("Reset")
+julia> set_mroots("Reset");
 
-julia> location = make_location(misr_path1 = 168, misr_orbit1 = 68050, misr_block1 = 110, misr_camera1 = "CF")
-"P168+O068050+B110+CF"
+julia> loc = make_location(misr_path1 = 168, misr_orbit1 = 68050, misr_block1 = 110);
 
-julia> post_fpath = make_post_fpath(; location = location, prdct = "L1RCCMMVR", ftype = "Map")
-"/Users/michel/Projects/MISR/Scrap/U=Dev/P=Test/P168+O068050+B110+CF/make_post_fpath/L1RCCMMVR/Map/"
+julia> loc.location
+"P168+O068050+B110"
+
+julia> post_fpath = make_post_fpath(; loc = loc, prdct = "L1RCCMMVR", ftype = "Map")
+"/Users/michel/Projects/MISR/Scrap/U=Dev/P=Test/P168+O068050+B110/make_post_fpath/L1RCCMMVR/Map/"
 ```
 
 # Example 3:
 ```
 julia> using JMTools
 
-julia> set_mroots("Reset")
+julia> set_mroots("Reset");
 
-julia> location = make_location(misr_path1 = 168, misr_path2 = 170,
-               misr_orbit1 = 68000, misr_orbit2 = 72000,
-               misr_block1 = 110, misr_block2 = 112,
-               misr_camera1 = "CF", misr_camera2 = "CA",
-               misr_band1 = "Green", misr_band2 = "Red",
-               misr_site = "Skukuza")
-"P168-P170+O068000-O072000+B110-B112+CF-CA+Green-Red+SITE_SKUKUZA"
+julia> loc = make_location(misr_path1 = 168, misr_path2 = 170,
+        misr_orbit1 = 68000, misr_orbit2 = 72000,
+        misr_block1 = 110, misr_block2 = 112,
+        misr_site = "Skukuza");
 
-julia> post_fpath = make_post_fpath(; user = "John", project = "Test", location = location,
+julia> loc.location
+"P168-P170+O068000-O072000+B110-B112+SITE_SKUKUZA"
+
+julia> post_fpath = make_post_fpath(; user = "John", project = "Test", loc = loc,
                prdct = "L1RCCMMVR", ftype = "Map")
-"/Users/michel/Projects/MISR/Scrap/U=John/P=Test/P168-P170+O068000-O072000+B110-B112+CF-CA+Green-Red+SITE_SKUKUZA/make_post_fpath/L1RCCMMVR/Map/"
+"/Users/michel/Projects/MISR/Scrap/U=John/P=Test/P168-P170+O068000-O072000+B110-B112+SITE_SKUKUZA/make_post_fpath/L1RCCMMVR/Map/"
 ```
 """
 function make_post_fpath(;
     user::Union{AbstractString, Nothing} = nothing,
     project::Union{AbstractString, Nothing} = nothing,
-    location::Union{AbstractString, Nothing} = nothing,
+    loc::Union{NamedTuple, Nothing} = nothing,
     call_f::Union{AbstractString, Nothing} = nothing,
     prdct::Union{AbstractString, Nothing} = nothing,
     ftype::Union{AbstractString, Nothing} = nothing
@@ -119,31 +121,35 @@ function make_post_fpath(;
     end
 
     # Add the location subdirectory:
-    if (location !== nothing) & (location !== "")
-        post_fpath = post_fpath * location * path_sep
-    else
+    if loc === nothing
         post_fpath = post_fpath * "NOLOC" * path_sep
+    else
+        if loc.location == ""
+            post_fpath = post_fpath * "NOLOC" * path_sep
+        else
+            post_fpath = post_fpath * loc.location * path_sep
+        end
     end
 
     # Add the calling function subdirectory:
-    if (call_f !== nothing) & (call_f !== "")
-        post_fpath = post_fpath * call_f * path_sep
-    else
+    if (call_f === nothing) | (call_f === "")
         post_fpath = post_fpath * "make_post_fpath" * path_sep
+    else
+        post_fpath = post_fpath * call_f * path_sep
     end
 
     # Add the product name subdirectory:
-    if (prdct !== nothing) & (prdct !== "")
-        post_fpath = post_fpath * prdct * path_sep
-    else
+    if (prdct === nothing) | (prdct === "")
         post_fpath = post_fpath * "all_prdcts" * path_sep
+    else
+        post_fpath = post_fpath * prdct * path_sep
     end
 
     # Add the file type subdirectory:
-    if (ftype !== nothing) & (ftype !== "")
-        post_fpath = post_fpath * ftype * path_sep
-    else
+    if (ftype === nothing) | (ftype === "")
         post_fpath = post_fpath * "all_ftypes" * path_sep
+    else
+        post_fpath = post_fpath * ftype * path_sep
     end
 
     return post_fpath

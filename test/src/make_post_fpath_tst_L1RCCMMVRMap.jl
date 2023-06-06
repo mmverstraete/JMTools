@@ -40,12 +40,12 @@ function make_post_fpath_tst_L1RCCMMVRMap(
     )::AbstractString
 
     set_mroots("Reset")
-    location = make_location(;
+    loc = make_location(;
         misr_path1 = 168, misr_path2 = 170,
         misr_orbit1 = 68000, misr_orbit2 = 72000,
         misr_block1 = 110, misr_block2 = 112,
         misr_site = "Skukuza")
-    post_fpath = make_post_fpath(; user = "John", project = "Test", location = location,
+    post_fpath = make_post_fpath(; user = "John", project = "Test", loc = loc,
         prdct = "L1RCCMMVR", ftype = "Map")
 
     return post_fpath

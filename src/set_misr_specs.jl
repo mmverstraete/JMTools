@@ -9,7 +9,10 @@
 # Keyword argument(s): None.
 
 # Return value(s):
-* `misr_specs::Tuple`: Key technical specifications of the MISR instrument.
+* `misr_specs::NamedTuple{(
+    :nmodes, :mode_names, :ncameras, :camera_names, :camera_ids, :camera_angles, :nbands, :band_names, :band_ids, :band_positions, :nchannels, :channel_names, :channel_ids),
+    Tuple{Int64, Vector{String}, Int64, Vector{String}, Vector{UnitRange{Int64}}, Vector{Float64}, Int64, Vector{String}, Vector{UnitRange{Int64}}, Vector{Float64}, Int64, Vector{String}, Vector{UnitRange{Int64}}}}`:
+    Key technical specifications of the MISR instrument.
 
 # Algorithm:
 * This function defines and returns an immutable named `Tuple` containing key technical specifications of the MISR instrument. Elements of the `Tuple` can be accessed by their index (rank in the `Tuple`) or by their names, and include:
@@ -80,7 +83,9 @@ julia> misr_specs.channel_names[12]
 ```
 """
 function set_misr_specs(
-    )::NamedTuple{(:nmodes, :mode_names, :ncameras, :camera_names, :camera_ids, :camera_angles, :nbands, :band_names, :band_ids, :band_positions, :nchannels, :channel_names, :channel_ids), Tuple{Int64, Vector{String}, Int64, Vector{String}, Vector{UnitRange{Int64}}, Vector{Float64}, Int64, Vector{String}, Vector{UnitRange{Int64}}, Vector{Float64}, Int64, Vector{String}, Vector{UnitRange{Int64}}}}
+    )::NamedTuple{(
+        :nmodes, :mode_names, :ncameras, :camera_names, :camera_ids, :camera_angles, :nbands, :band_names, :band_ids, :band_positions, :nchannels, :channel_names, :channel_ids),
+        Tuple{Int64, Vector{String}, Int64, Vector{String}, Vector{UnitRange{Int64}}, Vector{Float64}, Int64, Vector{String}, Vector{UnitRange{Int64}}, Vector{Float64}, Int64, Vector{String}, Vector{UnitRange{Int64}}}}
 
     misr_specs = (
         nmodes = 2,

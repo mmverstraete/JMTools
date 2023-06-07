@@ -30,11 +30,19 @@ julia> using Test
 julia> include(JMTools_test * "src/make_post_fname_tst_DataL1RCCMMVRcldm.jl")
 make_post_fname_tst_DataL1RCCMMVRcldm
 
+julia> p_f_tst = "Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+yyyy-mm-dd_v3.0.0.nc"
+"Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+yyyy-mm-dd_v3.0.0.nc"
+
+julia> todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
+"2023-06-07"
+
+julia> p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
+"Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+2023-06-07_v3.0.0.nc"
+
 julia> post_fname = make_post_fname_tst_DataL1RCCMMVRcldm();
 
-julia> @test post_fname == "Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
+julia> @test post_fname == p_f_tst
 Test Passed
-```
 ```
 """
 function make_post_fname_tst_DataL1RCCMMVRcldm(

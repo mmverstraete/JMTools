@@ -30,9 +30,18 @@ julia> using Test
 julia> include(JMTools_test * "src/make_post_fname_tst_StatsTIPfapar.jl")
 make_post_fname_tst_StatsTIPfapar
 
+julia> p_f_tst = "Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+yyyy-mm-dd_v3.0.0.nc"
+"Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+yyyy-mm-dd_v3.0.0.nc"
+
+julia> todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
+"2023-06-07"
+
+julia> p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
+"Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+2023-06-07_v3.0.0.nc"
+
 julia> post_fname = make_post_fname_tst_StatsTIPfapar();
 
-julia> @test post_fname == "Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
+julia> @test post_fname == p_f_tst
 Test Passed
 ```
 """

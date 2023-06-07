@@ -1,4 +1,5 @@
 using JMTools
+using Dates
 using Test
 
 # ==========================================================================================
@@ -131,20 +132,20 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     @test subprdct_name == "Cloud Mask"
 # ---------------------------------------------------------- make_location
     include(JMTools_test * "src/make_location_tst_1.jl")
-    location = make_location_tst_1();
-    @test location == "NOLOC"
+    loc = make_location_tst_1();
+    @test loc.location == "NOLOC"
 
     include(JMTools_test * "src/make_location_tst_2.jl")
-    location = make_location_tst_2();
-    @test location == "P168"
+    loc = make_location_tst_2();
+    @test loc.location == "P168"
 
     include(JMTools_test * "src/make_location_tst_3.jl")
-    location = make_location_tst_3();
-    @test location == "P168+O068050+B110"
+    loc = make_location_tst_3();
+    @test loc.location == "P168+O068050+B110"
 
     include(JMTools_test * "src/make_location_tst_4.jl")
-    location = make_location_tst_4();
-    @test location == "P168-P170+O068050-O072000+SITE_SKUKUZA"
+    loc = make_location_tst_4();
+    @test loc.location == "P168-P170+O068050-O072000+SITE_SKUKUZA"
 # ---------------------------------------------------------- make_misr_fname
     include(JMTools_test * "src/make_misr_fname_tst_0100.jl")
     misr_fname = make_misr_fname_tst_0100();
@@ -252,12 +253,18 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
         "~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_DA_F03_0024.B110_MISRHR_v3.0.0.hdf"]
 # ---------------------------------------------------------- make_post_fname
     include(JMTools_test * "src/make_post_fname_tst_DataL1RCCMMVRcldm.jl")
+    p_f_tst = "Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+yyyy-mm-dd_v3.0.0.nc"
+    todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
+    p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
     post_fname = make_post_fname_tst_DataL1RCCMMVRcldm();
-    @test post_fname == "Data_L1RCCMMVR_cldm_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
+    @test post_fname == p_f_tst
 
     include(JMTools_test * "src/make_post_fname_tst_StatsTIPfapar.jl")
+    p_f_tst = "Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+yyyy-mm-dd_v3.0.0.nc"
+    todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
+    p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
     post_fname = make_post_fname_tst_StatsTIPfapar();
-    @test post_fname == "Stats_TIP_fapar_P168+O068050+B110_R1100_2012-10-03+2023-06-06_v3.0.0.nc"
+    @test post_fname == p_f_tst
 # ---------------------------------------------------------- make_post_fpath
     include(JMTools_test * "src/make_post_fpath_tst_NoArgs.jl")
     post_fpath = make_post_fpath_tst_NoArgs();
@@ -266,6 +273,18 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     include(JMTools_test * "src/make_post_fpath_tst_L1RCCMMVRMap.jl")
     post_fpath = make_post_fpath_tst_L1RCCMMVRMap();
     @test post_fpath == "/Users/michel/Projects/MISR/Scrap/U=John/P=Test/P168-P170+O068000-O072000+B110-B112+SITE_SKUKUZA/make_post_fpath/L1RCCMMVR/Map/"
+# ---------------------------------------------------------- make_post_fspec
+    include(JMTools_test * "src/make_post_fspec_tst_1.jl")
+    p_f_tst = "~/U=MMV/P=Explore/P168-P170+O068000-O070000+B100-B110/make_post_fspec/L1RTGM/Map/Map_L1RTGM_radrd_P168-P170+O068000-O070000+B100-B110_2012-09-29+2013-02-14+yyyy-mm-dd_F03_0024.png"
+    todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
+    p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
+    post_fspec = make_post_fspec_tst_1();
+    @test post_fspec == p_f_tst
+
+    include(JMTools_test * "src/make_post_fspec_tst_2.jl")
+    p_f_tst = "/Users/michel/Projects/MISR/Scrap/U=MMV/P=Explore/P192-P194+O080000-O082000+B056-B058/make_post_fpath/L2LAND/Map/Map_L2LAND_Bidirectional_Reflectance_Factor_P192-P194+O080000-O082000+B056-B058_R1100_2015-01-01+2015-05-19+yyyy-mm-dd_F08_0023.png"
+    todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
+    p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
 # ---------------------------------------------------------- set_current_prdct_version
     include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();

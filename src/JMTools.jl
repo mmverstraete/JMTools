@@ -98,8 +98,8 @@ include(JMTools_src * "make_post_fname.jl")
 export make_post_fname
 include(JMTools_src * "make_post_fpath.jl")
 export make_post_fpath
-# include(JMTools_src * "make_post_fspec.jl")
-# export make_post_fspec
+include(JMTools_src * "make_post_fspec.jl")
+export make_post_fspec
 include(JMTools_src * "orbit2date.jl")
 export orbit2date
 include(JMTools_src * "percentile.jl")
@@ -122,6 +122,10 @@ include(JMTools_src * "split_misrhr_fpath.jl")
 export split_misrhr_fpath
 include(JMTools_src * "split_post_fpath.jl")
 export split_post_fpath
+
+
+include(JMTools_src * "fun.jl")
+export fun
 
 
 # include(JMTools_src * "find_matches.jl")

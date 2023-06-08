@@ -130,8 +130,37 @@ include(JMTools_test * "src/is_valid_misr_block_tst_005.jl")
     bool, subprdct_name = is_valid_misrhr_subprdct_tst_L1RCCMMVRcldm();
     @test bool == true
     @test subprdct_name == "Cloud Mask"
+# ---------------------------------------------------------- lr2hr
+    include(JMTools_test * "src/lr2hr_tst_1.jl")
+    matrix_hr = lr2hr_tst_1();
+    @test matrix_hr == [
+       "white"   "white"   "white"   "black"   "black"   "black"
+       "white"   "white"   "white"   "black"   "black"   "black"
+       "white"   "white"   "white"   "black"   "black"   "black"
+       "yellow"  "yellow"  "yellow"  "orange"  "orange"  "orange"
+       "yellow"  "yellow"  "yellow"  "orange"  "orange"  "orange"
+       "yellow"  "yellow"  "yellow"  "orange"  "orange"  "orange"
+       "blue"    "blue"    "blue"    "green"   "green"   "green"
+       "blue"    "blue"    "blue"    "green"   "green"   "green"
+       "blue"    "blue"    "blue"    "green"   "green"   "green"]
+
+    include(JMTools_test * "src/lr2hr_tst_2.jl")
+    matrix_hr = lr2hr_tst_2();
+    @test matrix_hr == [
+        1  1  2  2
+        1  1  2  2
+        3  3  4  4
+        3  3  4  4]
+
+    include(JMTools_test * "src/lr2hr_tst_3.jl")
+    matrix_hr = lr2hr_tst_3();
+    @test matrix_hr == [
+        1.1  1.1  2.2  2.2  3.3  3.3  4.4  4.4
+        1.1  1.1  2.2  2.2  3.3  3.3  4.4  4.4
+        5.5  5.5  6.6  6.6  7.7  7.7  8.8  8.8
+        5.5  5.5  6.6  6.6  7.7  7.7  8.8  8.8]
 # ---------------------------------------------------------- make_location
-    include(JMTools_test * "src/make_location_tst_1.jl")
+include(JMTools_test * "src/make_location_tst_1.jl")
     loc = make_location_tst_1();
     @test loc.location == "NOLOC"
 

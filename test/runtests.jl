@@ -37,6 +37,42 @@ using Test
     @test misr_site_id == "SITE_SKUKUZA"
     @test misr_version_id == "F03_0024"
     @test ext_id == ".hdf"
+# ---------------------------------------------------------- hr2lr
+    include(JMTools_test * "src/hr2lr_tst_1.jl")
+    matrix_lr = hr2lr_tst_1();
+    @test matrix_lr == [
+        0.12  0.14
+        0.16  0.18
+        0.25  0.0]
+
+    include(JMTools_test * "src/hr2lr_tst_2.jl")
+    matrix_lr = hr2lr_tst_2();
+    @test matrix_lr == [
+        0x01  0x02  0x03
+        0x02  0x01  0x03
+        0x03  0xfe  0x02
+        0xfe  0xfe  0x01]
+
+    include(JMTools_test * "src/hr2lr_tst_3.jl")
+    matrix_lr = hr2lr_tst_3();
+    @test matrix_lr == [
+        350.0  400.0  450.0
+        340.0  330.0  310.0]
+
+    include(JMTools_test * "src/hr2lr_tst_4.jl")
+    matrix_lr = hr2lr_tst_4();
+    @test matrix_lr == [
+        32752;
+        32248;
+        32192;
+        32152;
+        32191;;]
+
+    include(JMTools_test * "src/hr2lr_tst_5.jl")
+    matrix_lr = hr2lr_tst_5();
+    @test matrix_lr == [
+        0x00  0x01
+        0x02  0x03]
 # ---------------------------------------------------------- is_from_misr_path
     include(JMTools_test * "src/is_from_misr_path_tst_1.jl")
     bool = is_from_misr_path_tst_1();

@@ -350,8 +350,28 @@ include(JMTools_test * "src/make_location_tst_1.jl")
     p_f_tst = "/Users/michel/Projects/MISR/Scrap/U=MMV/P=Explore/P192-P194+O080000-O082000+B056-B058/make_post_fpath/L2LAND/Map/Map_L2LAND_Bidirectional_Reflectance_Factor_P192-P194+O080000-O082000+B056-B058_R1100_2015-01-01+2015-05-19+yyyy-mm-dd_F08_0023.png"
     todaydate = Dates.format(Dates.today(), "yyyy-mm-dd")
     p_f_tst = replace(p_f_tst, "yyyy-mm-dd" => todaydate)
+# ---------------------------------------------------------- orbit2date
+    include(JMTools_test * "src/orbit2date_tst_1.jl")
+    orbit_date, orbit_date_string = orbit2date_tst_1();
+    @test orbit_date == Date("2012-10-03")
+    @test orbit_date_string == "2012-10-03"
+
+    include(JMTools_test * "src/orbit2date_tst_2.jl")
+    orbit_date, orbit_date_string = orbit2date_tst_2();
+    @test orbit_date == Date("2012-10-03")
+    @test orbit_date_string == "2012.10.03"
+
+    include(JMTools_test * "src/orbit2date_tst_3.jl")
+    orbit_date, orbit_date_string = orbit2date_tst_3();
+    @test orbit_date == Date("2012-10-03")
+    @test orbit_date_string == "2.4562037994444445e6"
+
+    include(JMTools_test * "src/orbit2date_tst_4.jl")
+    orbit_date, orbit_date_string = orbit2date_tst_4();
+    @test orbit_date == Date("2012-10-03")
+    @test orbit_date_string == "20121003"
 # ---------------------------------------------------------- set_current_prdct_version
-    include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
+include(JMTools_test * "src/set_current_prdct_version_tst_0100.jl")
     prdct_version = set_current_prdct_version_tst_0100();
     @test prdct_version == "F01_24"
 

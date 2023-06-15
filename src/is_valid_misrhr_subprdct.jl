@@ -1,7 +1,7 @@
 """
     bool, subprdct_name = is_valid_misrhr_subprdct(misrhr_prdct, misrhr_subprdct)
 
-# Purpose:
+# Purpose(s):
 Determine whether the specified `misrhr_subprdct` is a valid subproduct of `mishr_prdct`, and return the full subproduct name.
 
 # Positional argument(s):
@@ -17,6 +17,9 @@ Determine whether the specified `misrhr_subprdct` is a valid subproduct of `mish
 # Algorithm:
 * This function verifies that the positional argument `misrhr_subprdct` is a valid MISR-HR subproduct acronym of `misrhr_prdct`.
 
+# Reference(s):
+* The MISR-HR Processing System Manual.
+
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
     [Caltech license](https://github.com/nasa/MISR-Toolkit/blob/master/LICENSE).
@@ -30,7 +33,7 @@ Determine whether the specified `misrhr_subprdct` is a valid subproduct of `mish
 # Notes:
 * This function currently recognizes only the MISR product and subproduct acronyms defined below; additional acronyms can be added as needed.
 
-# Example(s):
+# Example 1:
 ```julia
 julia> using JMTools
 

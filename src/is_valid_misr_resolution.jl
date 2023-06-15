@@ -2,20 +2,26 @@
     bool, misr_resolution_string = is_valid_misr_resolution(misr_resolution;
         misr_prdct = misr_prdct, misr_camera = misr_camera, misr_band = misr_band)
 
-# Purpose:
+# Purpose(s):
 Determine whether the given `misr_resolution` is a valid MISR spatial resolution for the specified product.
 
 # Positional argument(s):
 * `misr_resolution::Integer`: The spatial resolution of the specified product.
 
 # Keyword argument(s):
-* `misr_prdct::AbstractString = ""`: The MISR product acronym.
-* `misr_camera::AbstractString = ""`: The MISR camera name.
-* `misr_band::AbstractString = ""`: The MISR spectral band name.
+* `misr_prdct::Union{AbstractString, Nothing} = nothing`: The MISR product acronym.
+* `misr_camera::Union{AbstractString, Nothing} = nothing`: The MISR camera name.
+* `misr_band::Union{AbstractString, Nothing} = nothing`: The MISR spectral band name.
 
 # Return value(s):
 * `bool::Bool`: Whether `misr_resolution` is valid or not.
-* `misr_resolution_string::Integer`: The string version of the MISR spatial resolution.
+* `misr_resolution_string::AbstractString`: The string version of the MISR spatial resolution.
+
+# Algorithm:
+* This function checks whether the stated spatial resolution is valid for the indicated product, camera and spectral band.
+
+# Reference(s):
+* The MISR-HR Processing System Manual.
 
 # Licensing:
 * Mtk C Library: Copyright © 2005 California Institute of Technology,
@@ -28,24 +34,44 @@ Determine whether the given `misr_resolution` is a valid MISR spatial resolution
 * Julia function: Version 0.1.0 (2023-05-15).
 
 # Note(s): 
-* The output variable `misr_resolution_string` is only used in the MISR context.
+* The return value `misr_resolution_string` is only used in the MISR context.
 * The validity of keyword arguments is verified only if required: unnecessary keywords are ignored.
 
-# Example(s):
+# Example 1:
 ```julia
 julia> using JMTools
 
 julia> bool, misr_resolution_string = is_valid_misr_resolution(1100)
 (true, "R1100")
+```
+
+# Example 2:
+```julia
+julia> using JMTools
 
 julia> bool, misr_resolution_string = is_valid_misr_resolution(1100; misr_prdct = "L1RCCM")
 (true, "R1100")
+```
+
+# Example 3:
+```julia
+julia> using JMTools
 
 julia> bool, misr_resolution_string = is_valid_misr_resolution(1100; misr_prdct = "L1RTGM", misr_camera = "DF", misr_band = "Blue")
 (true, "R1100")
+```
+
+# Example 4:
+```julia
+julia> using JMTools
 
 julia> bool, misr_resolution_string = is_valid_misr_resolution(1100; misr_prdct = "L1RTGM", misr_camera = "AA", misr_band = "Red")
 (false, "")
+```
+
+# Example 5:
+```julia
+julia> using JMTools
 
 julia> bool, misr_resolution_string = is_valid_misr_resolution(275; misr_prdct = "L1RTGM", misr_camera = "AA", misr_band = "Red")
 (true, "R275")

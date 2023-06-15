@@ -85,7 +85,7 @@ julia> misrhr_fspec = make_misrhr_fspec("L1B3", 168, 68050, 110;
 
 julia> println(misrhr_fspec[5])
  ~/mypath/MISR_AM1_GRP_TERRAIN_GM_P168_O068050_AN_F03_0024.B110_MISRHR_V2.02-0.hdf
- ```
+```
 """
 function make_misrhr_fspec(
     misrhr_prdct::AbstractString,

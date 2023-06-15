@@ -467,7 +467,23 @@ include(JMTools_test * "src/set_misr_specs_tst_1.jl")
     @test mroot_misr == ""
     @test misr_path == 168
     @test misr_prdct == "L1RCCM"
+# ---------------------------------------------------------- split_misrhr_fpath
+    include(JMTools_test * "src/split_misrhr_fpath_tst_1.jl")
+    mroot_misrhr, misr_path, misr_block, misrhr_prdct, misrhr_subprdct = split_misrhr_fpath_tst_1();
+    @test mroot_misrhr == "/Volumes/MISR-HR/"
+    @test misr_path == 168
+    @test misr_block == 110
+    @test misrhr_prdct == "TIP"
+    @test misrhr_subprdct == "GRN"
 
+    include(JMTools_test * "src/split_misrhr_fpath_tst_2.jl")
+    mroot_misrhr, misr_path, misr_block, misrhr_prdct, misrhr_subprdct = split_misrhr_fpath_tst_2();
+    @test mroot_misrhr == "/Volumes/MISR-HR/"
+    @test misr_path == 168
+    @test misr_block == 111
+    @test misrhr_prdct == "L1B3"
+    @test misrhr_subprdct == ""
 
+    
 end
 # ==========================================================================================

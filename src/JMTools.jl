@@ -102,8 +102,6 @@ include(JMTools_src * "make_post_fspec.jl")
 export make_post_fspec
 include(JMTools_src * "orbit2date.jl")
 export orbit2date
-# include(JMTools_src * "percentile.jl")
-# export percentile
 include(JMTools_src * "set_current_prdct_version.jl")
 export set_current_prdct_version
 include(JMTools_src * "set_misr_resol.jl")
@@ -118,14 +116,12 @@ include(JMTools_src * "split_location.jl")
 export split_location
 include(JMTools_src * "split_misr_fpath.jl")
 export split_misr_fpath
-# include(JMTools_src * "split_misrhr_fpath.jl")
-# export split_misrhr_fpath
+include(JMTools_src * "split_misrhr_fpath.jl")
+export split_misrhr_fpath
 # include(JMTools_src * "split_post_fpath.jl")
 # export split_post_fpath
 
 
-include(JMTools_src * "fun.jl")
-export fun
 
 
 # include(JMTools_src * "find_matches.jl")

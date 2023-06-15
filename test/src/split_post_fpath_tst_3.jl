@@ -39,13 +39,13 @@ julia> mroot_post, user, project, location, call_f, prdct, ftype = split_post_fp
 julia> @test mroot_post == "/Users/michel/Projects/MISR/Scrap/"
 Test Passed
 
-julia> @test user == "Dev"
+julia> @test user == "John"
 Test Passed
 
 julia> @test project == "Test"
 Test Passed
 
-julia> @test location == "P168+O068050+B110"
+julia> @test location == "P168-P170+O068000-O072000+B110-B112+SITE_SKUKUZA"
 Test Passed
 
 julia> @test call_f == "make_post_fpath"

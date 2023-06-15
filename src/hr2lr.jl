@@ -103,7 +103,7 @@ julia> matrix_lr = hr2lr(matrix_hr, 2, "LWCMask")
  0x02  0x01  0x03
  0x03  0xfe  0x02
  0xfe  0xfe  0x01
- ```
+```
 
 # Example 3:
 ```julia
@@ -184,6 +184,7 @@ julia> matrix_lr = hr2lr(matrix_hr, 4, "RadRd")
  32192
  32152
  32191
+```
 
 # Example 5:
 ```julia

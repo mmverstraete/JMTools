@@ -110,21 +110,13 @@ include(JMTools_src * "set_misr_specs.jl")
 export set_misr_specs
 include(JMTools_src * "set_mroots.jl")
 export set_mroots
-# include(JMTools_src * "sp_fspec.jl")
-# export sp_fspec
 include(JMTools_src * "split_location.jl")
 export split_location
 include(JMTools_src * "split_misr_fpath.jl")
 export split_misr_fpath
 include(JMTools_src * "split_misrhr_fpath.jl")
 export split_misrhr_fpath
-# include(JMTools_src * "split_post_fpath.jl")
-# export split_post_fpath
-
-
-
-
-# include(JMTools_src * "find_matches.jl")
-# export find_matches
+include(JMTools_src * "split_post_fpath.jl")
+export split_post_fpath
 
 end

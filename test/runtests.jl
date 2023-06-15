@@ -483,6 +483,36 @@ include(JMTools_test * "src/set_misr_specs_tst_1.jl")
     @test misr_block == 111
     @test misrhr_prdct == "L1B3"
     @test misrhr_subprdct == ""
+# ---------------------------------------------------------- split_post_fpath
+    include(JMTools_test * "src/split_post_fpath_tst_1.jl")
+    mroot_post, user, project, location, call_f, prdct, ftype = split_post_fpath_tst_1();
+    @test mroot_post == "~/"
+    @test user == "Dev"
+    @test project == "Test"
+    @test location == "NOLOC"
+    @test call_f == "make_post_fpath"
+    @test prdct == "all_prdcts"
+    @test ftype == "all_ftypes"
+
+    include(JMTools_test * "src/split_post_fpath_tst_2.jl")
+    mroot_post, user, project, location, call_f, prdct, ftype = split_post_fpath_tst_2();
+    @test mroot_post == "/Users/michel/Projects/MISR/Scrap/"
+    @test user == "Dev"
+    @test project == "Test"
+    @test location == "P168+O068050+B110"
+    @test call_f == "make_post_fpath"
+    @test prdct == "L1RCCMMVR"
+    @test ftype == "Map"
+
+    include(JMTools_test * "src/split_post_fpath_tst_3.jl")
+    mroot_post, user, project, location, call_f, prdct, ftype = split_post_fpath_tst_3();
+    @test mroot_post == "/Users/michel/Projects/MISR/Scrap/"
+    @test user == "John"
+    @test project == "Test"
+    @test location == "P168-P170+O068000-O072000+B110-B112+SITE_SKUKUZA"
+    @test call_f == "make_post_fpath"
+    @test prdct == "L1RCCMMVR"
+    @test ftype == "Map"
 
     
 end
